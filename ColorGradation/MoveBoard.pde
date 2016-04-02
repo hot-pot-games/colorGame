@@ -4,6 +4,7 @@ class MoveBoard extends Clickable
   
   PVector size;
   color   col;
+  Draginable dg;
   
   MoveBoard(PVector ppos, PVector psize, color pcol, int i){
     super.pos  = ppos.copy();
@@ -15,8 +16,22 @@ class MoveBoard extends Clickable
     super.draggable = true;
     
     this.index = i;
+    this.dg    = null;
   }
   
+  void findDock(Draginable dd){
+    this.dg = dd;
+  }
+  
+  void dock(){
+    this.pos = dg.pos.copy();
+  }
+  
+  void exchangeDg(MoveBoard that){
+    Draginable temp = this.dg;
+    this.dg = that.dg;
+    that.dg = temp;
+  }
   
   void display(){
     fill(col);
@@ -30,7 +45,7 @@ class MoveBoard extends Clickable
   }
   
   void releaseEvent(){
-  
+    dock();
   }
   
   void drawHover(){

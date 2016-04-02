@@ -24,9 +24,20 @@ abstract class Clickable{
   void releaseEvent(){println("Error: use releasEvent without override the past function");}
 }
 
+abstract class Draginable{
+  boolean checkable = false;
+  PVector pos = null;
+  
+  abstract boolean isIn(int mx, int my);
+  abstract void display();
+  void drawDragIn(){println("Error: use drawDragIn without override the past function");}
+  void dragInEvent(){println("Error: use dragInEvent without override the past function");}
+}
+
 
 class InputManager{
   ArrayList<Clickable>bts;
+  ArrayList<Draginable>dgs;
   Clickable nowc;
   boolean hasSele;
   int chooseState;
@@ -36,6 +47,7 @@ class InputManager{
   
   InputManager(){
     this.bts = new ArrayList<Clickable>();
+    this.dgs = new ArrayList<Draginable>();
     this.nowc = null;
     this.hasSele = false;
     this.chooseState = STATE_NONE;
@@ -44,6 +56,10 @@ class InputManager{
   
   void add(Clickable cb){
     bts.add(cb);
+  }
+  
+  void add(Draginable db){
+    dgs.add(db);
   }
   
   void checkHover(){
@@ -113,6 +129,12 @@ class InputManager{
           nowc.pos.x = mouseX + dragOffset.x;
           nowc.pos.y = mouseY + dragOffset.y;
         }
+        for(Clickable ck: bts){
+          if(ck.isIn(mouseX,mouseY) && ck!=nowc){
+             insert((MoveBoard)ck,(MoveBoard)nowc);
+             return;
+           }
+         }
       }
       else                  //mousePressed鼠标按下的情况（鼠标之前没有按下）
       {

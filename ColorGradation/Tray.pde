@@ -1,13 +1,48 @@
+class Slot extends Draginable{
+  PVector size;
+  
+  int       index;
+  //MoveBoard livingBoard;
+  
+  Slot(PVector ppos, PVector psize, int i){
+    super.pos = ppos.copy();
+    this.size = psize.copy();
+    this.index = i;
+  }
+  
+  //void livein(MoveBoard li){
+  //  this.livingBoard = li;
+  //}
+  
+  //void dock(){
+  //  this.livingBoard.pos = pos.copy();
+  //}
+  
+  boolean isIn(int mx, int my){
+    return false;
+  }
+  
+  void display(){
+    fill(50);
+    noStroke();
+    rect(pos.x,pos.y,size.x,size.y,5);
+  }
+ 
+  
+}
+
+
+
 class Tray{
   PVector pos;
   PVector size;
   PVector gridSize;
-  ArrayList<PVector>tps;
+  ArrayList<Slot>tps;
   
   float marginRate;
   
   Tray(PVector psize, int num, float mar){
-    this.tps  = new ArrayList<PVector>();
+    this.tps  = new ArrayList<Slot>();
     this.marginRate = mar;
     
     float len,hei;
@@ -27,25 +62,49 @@ class Tray{
       {
         sx += gridSize.x*marginRate;
       }
-      tps.add(new PVector(pos.x+sx+i*ix,pos.y+sy+i*iy));
+      tps.add(new Slot(new PVector(pos.x+sx+i*ix,pos.y+sy+i*iy),gridSize.copy(),i));
       
     }
     
   }
   
   PVector get(int i){
-    return tps.get(i).copy();
+    return tps.get(i).pos;
   }
+  
+  Slot getDock(int i){
+    return tps.get(i);
+  }
+  
+  //void live(int i, MoveBoard mb){
+  //  tps.get(i).livein(mb);
+  //}
+  
+  //void exchange(int a, int b){
+  //  MoveBoard temp;
+  //  temp = tps.get(a).livingBoard;
+  //  tps.get(a).livein(tps.get(b).livingBoard);
+  //  tps.get(b).livein(temp);
+  //}
+  
+  //void dock(){
+  //  for(Slot s: tps){
+  //    s.dock();
+  //  }
+  //}
+  
+  //void dock(int i){
+  //  tps.get(i).dock();
+  //}
+  
   
   void display(){
     stroke(255);
     strokeWeight(2);
     noFill();
     rect(pos.x,pos.y,size.x,size.y);
-    for(PVector p: tps){
-      fill(50);
-      noStroke();
-      rect(p.x,p.y,gridSize.x,gridSize.y,5);
+    for(Slot p: tps){
+      p.display();
     }
   }
 
