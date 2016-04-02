@@ -2,11 +2,7 @@ ArrayList<MoveBoard>mbs;
 
 InputManager inm;
 
-boolean hasSele;
-PVector dragOffset;
-boolean rollover;
-boolean dragging;
-boolean pmousePressed;
+
 
 void setup(){
   size(1200,800);
@@ -33,7 +29,6 @@ void setup(){
 
 void draw(){
   background(255);
-  hasSele = false;
   for(MoveBoard m: mbs){
     m.display();
   }

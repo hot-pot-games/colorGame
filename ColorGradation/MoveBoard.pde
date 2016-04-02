@@ -1,22 +1,10 @@
-abstract class Clickable{
-  boolean hoverable = false;
-  boolean clickable = false;
-  boolean draggable = false;
-  
-  abstract boolean isIn(int mx, int my);
-  void drawHover(){println("Error: use drawHover without override the past function");};
-  void drawClick(){println("Error: use drawClick without override the past function");};
-  void drawDrag(){println("Error: use drawDrag without override the past function");};
-}
-
 class MoveBoard extends Clickable
 {
-  PVector pos;
   PVector size;
   color   col;
   
   MoveBoard(PVector ppos, PVector psize, color pcol){
-    this.pos  = ppos.copy();
+    super.pos  = ppos.copy();
     this.size = psize.copy();
     this.col  = pcol;
     
@@ -29,13 +17,27 @@ class MoveBoard extends Clickable
     fill(col);
     stroke(0);
     strokeWeight(2);
-    rect(pos.x,pos.y,size.x,size.y);
+    rect(pos.x,pos.y,size.x,size.y,5);
   }
   
   void drawHover(){
     fill(50,150);
     noStroke();
-    rect(pos.x,pos.y,size.x,size.y);
+    rect(pos.x,pos.y,size.x,size.y,5);
+  }
+  
+  void drawClick(){
+    noFill();
+    stroke(0);
+    strokeWeight(3);
+    rect(pos.x-5,pos.y-5,size.x+10,size.x+10,5);
+  }
+  
+  void drawDrag(){
+    noFill();
+    stroke(0);
+    strokeWeight(3);
+    rect(pos.x-5,pos.y-5,size.x+10,size.x+10,5);
   }
   
   boolean isIn(int mx, int my){
