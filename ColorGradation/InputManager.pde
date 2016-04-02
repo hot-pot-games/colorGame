@@ -9,11 +9,19 @@ abstract class Clickable{
   boolean draggable = false;
   PVector pos = null;
   
+  void freeze()
+  {
+    hoverable = false;
+    clickable = false;
+    draggable = false;
+  }
   abstract boolean isIn(int mx, int my);
   abstract void display();
   void drawHover(){println("Error: use drawHover without override the past function");};
   void drawClick(){println("Error: use drawClick without override the past function");};
   void drawDrag(){println("Error: use drawDrag without override the past function");};
+  void clickEvent() {println("Error: use clickEvent without override the past function");}
+  void releaseEvent(){println("Error: use releasEvent without override the past function");}
 }
 
 
@@ -67,6 +75,7 @@ class InputManager{
             chooseState = STATE_CLICK;
             nowc        = b;
             hasSele     = true;
+            nowc.clickEvent();
             return;
           }
         }
@@ -82,11 +91,13 @@ class InputManager{
     {
       if(!pmousePressed)    //MouseMoved鼠标自由移动的情况（鼠标之前也没有点击）
       {
-        println("in");
         checkHover();      //检测有没有悬浮在哪个可悬浮物体之上
       }
       else                 //MouseReleased鼠标释放的情况（鼠标之前一直在点击，现在松开了）
       {
+        if(nowc!=null){
+          nowc.releaseEvent();
+        }
         hasSele       = false;
         nowc          = null;
         chooseState   = STATE_NONE;

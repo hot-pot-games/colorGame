@@ -1,9 +1,11 @@
 class MoveBoard extends Clickable
 {
+  int index;
+  
   PVector size;
   color   col;
   
-  MoveBoard(PVector ppos, PVector psize, color pcol){
+  MoveBoard(PVector ppos, PVector psize, color pcol, int i){
     super.pos  = ppos.copy();
     this.size = psize.copy();
     this.col  = pcol;
@@ -11,13 +13,24 @@ class MoveBoard extends Clickable
     super.hoverable = true;
     super.clickable = true;
     super.draggable = true;
+    
+    this.index = i;
   }
+  
   
   void display(){
     fill(col);
-    stroke(0);
+    stroke(50);
     strokeWeight(2);
     rect(pos.x,pos.y,size.x,size.y,5);
+  }
+  
+  void clickEvent(){
+    println(index);
+  }
+  
+  void releaseEvent(){
+  
   }
   
   void drawHover(){
@@ -28,14 +41,14 @@ class MoveBoard extends Clickable
   
   void drawClick(){
     noFill();
-    stroke(0);
+    stroke(200,0,0);
     strokeWeight(3);
     rect(pos.x-5,pos.y-5,size.x+10,size.x+10,5);
   }
   
   void drawDrag(){
     noFill();
-    stroke(0);
+    stroke(200,0,0);
     strokeWeight(3);
     rect(pos.x-5,pos.y-5,size.x+10,size.x+10,5);
   }
