@@ -2,7 +2,6 @@ class Slot extends Draginable{
   PVector size;
   
   int       index;
-  //MoveBoard livingBoard;
   
   Slot(PVector ppos, PVector psize, int i){
     super.pos = ppos.copy();
@@ -10,13 +9,7 @@ class Slot extends Draginable{
     this.index = i;
   }
   
-  //void livein(MoveBoard li){
-  //  this.livingBoard = li;
-  //}
-  
-  //void dock(){
-  //  this.livingBoard.pos = pos.copy();
-  //}
+ 
   
   boolean isIn(int mx, int my){
     return false;
@@ -75,27 +68,6 @@ class Tray{
   Slot getDock(int i){
     return tps.get(i);
   }
-  
-  //void live(int i, MoveBoard mb){
-  //  tps.get(i).livein(mb);
-  //}
-  
-  //void exchange(int a, int b){
-  //  MoveBoard temp;
-  //  temp = tps.get(a).livingBoard;
-  //  tps.get(a).livein(tps.get(b).livingBoard);
-  //  tps.get(b).livein(temp);
-  //}
-  
-  //void dock(){
-  //  for(Slot s: tps){
-  //    s.dock();
-  //  }
-  //}
-  
-  //void dock(int i){
-  //  tps.get(i).dock();
-  //}
   
   
   void display(){

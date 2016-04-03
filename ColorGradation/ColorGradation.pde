@@ -22,7 +22,6 @@ void setup(){
   for(int i=0; i<num; i++){
     MoveBoard temp;
     temp = new MoveBoard(tr.get(i).copy(),psize.copy(), lerpColor(cl1,cl2,i*1f/num),i);
-    //tr.live(i,temp);
     temp.findDock(tr.getDock(i));
     mbs.add(temp);
     inm.add(temp);
@@ -67,22 +66,3 @@ void insert(MoveBoard ma, MoveBoard mb){
   ma.exchangeDg(mb);
   ma.dock();
 }
-
-//void insert(Slot dg, MoveBoard nc){
-//  Slot st = null;
-//  for(Slot s: tr.tps){
-//    if(s.livingBoard==nc){
-//      st = s;
-//      break;
-//    }
-//  }
-//  if(st==null){
-//    println("Error when get Slot position");
-//  }
-//  else
-//  {
-//    MoveBoard mb = st.livingBoard;
-//    st.livein(nc);
-//    dg.livein(mb);
-//  }
-//}
