@@ -17,11 +17,13 @@ abstract class Clickable{
   }
   abstract boolean isIn(int mx, int my);
   abstract void display();
+  abstract void addForce(PVector force);
   void drawHover(){println("Error: use drawHover without override the past function");};
   void drawClick(){println("Error: use drawClick without override the past function");};
   void drawDrag(){println("Error: use drawDrag without override the past function");};
   void clickEvent() {println("Error: use clickEvent without override the past function");}
   void releaseEvent(){println("Error: use releasEvent without override the past function");}
+  
 }
 
 abstract class Draginable{
@@ -126,10 +128,13 @@ class InputManager{
       {
         if(chooseState!=STATE_NONE && nowc.draggable)
         {
-          nowc.pos.x = mouseX + dragOffset.x;
-          nowc.pos.y = mouseY + dragOffset.y;
+          PVector force;
+          force = new PVector(mouseX-nowc.pos.x,mouseY-nowc.pos.y);
+          float d = force.mag();                              
+          d = constrain(d,5.0,25.0);
+          force.normalize();
+          nowc.addForce(force.mult(d*0.01f));
         }
-        chooseState = STATE_DRAG;
       }
       else                  //mousePressed鼠标按下的情况（鼠标之前没有按下）
       {
