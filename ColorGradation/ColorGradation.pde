@@ -2,7 +2,10 @@ ArrayList<MoveBoard>mbs;
 
 InputManager inm;
 Tray         tr;
+uiButton     bt;
 
+int          moveCount;
+int          minMove;
 
 void setup(){
   size(1200,800);
@@ -10,9 +13,12 @@ void setup(){
   int num = 16;
   PVector s = new PVector(60,60);
   
+  PFont pf = createFont("微软雅黑",40);
+  textFont(pf,40);
+  
   inm = new InputManager();
   tr  = new Tray(new PVector(s.x,s.y),num,0.05);
-  
+  bt  = new uiButton(new PVector(1000,600),new PVector(100,60));
   mbs = new ArrayList<MoveBoard>();
 
   PVector psize = s.copy();
@@ -26,11 +32,15 @@ void setup(){
     mbs.add(temp);
     inm.add(temp);
   }
+  inm.add(bt);
   
   mbs.get(0).freeze();
   mbs.get(mbs.size()-1).freeze();
   
-  reshuffle(20);
+  moveCount = 0;
+  minMove   = 999;
+  
+  reshuffle(30);
 }
 
 
@@ -42,7 +52,11 @@ void draw(){
    m.display();
   }
   
+  bt.display();
   inm.display();
+  
+  fill(255);
+  text("Move: "+moveCount,100,100);
 }
 
 
@@ -60,9 +74,22 @@ void reshuffle(int num){
   for(MoveBoard mb: mbs){
     mb.dock();
   }
+  
+  moveCount = 0;
 }
 
 void insert(MoveBoard ma, MoveBoard mb){
   ma.exchangeDg(mb);
   ma.dock();
+}
+
+void checkWin(){
+  for(MoveBoard m: mbs){
+    if(m.index!=m.dg.index){
+        println("NO!!!");
+        return;
+    }
+  }
+  
+  println("win!");
 }
