@@ -122,23 +122,14 @@ class InputManager{
     }
     else
     {
-      if(nowc!=null && pmousePressed)     //MouseDragged鼠标拖动的情况（鼠标一直点击着）
+      if(pmousePressed)     //MouseDragged鼠标拖动的情况（鼠标一直点击着）
       {
         if(chooseState!=STATE_NONE && nowc.draggable)
         {
           nowc.pos.x = mouseX + dragOffset.x;
           nowc.pos.y = mouseY + dragOffset.y;
         }
-        for(Clickable ck: bts){
-          if(ck.isIn(mouseX,mouseY) && ck!=nowc && ck.clickable){
-             insert((MoveBoard)ck,(MoveBoard)nowc);
-             return;
-           }
-         }
-         if(nowc!=null)
-         {
-           chooseState = STATE_DRAG;
-         }
+        chooseState = STATE_DRAG;
       }
       else                  //mousePressed鼠标按下的情况（鼠标之前没有按下）
       {
