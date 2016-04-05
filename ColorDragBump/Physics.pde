@@ -4,6 +4,7 @@ class Physics
   
   float friction = -0.9;
   float spring = 0.05;
+  float friction_move = 0.998;
   
   Physics(){
     balls = new ArrayList<Coll>();
@@ -14,7 +15,11 @@ class Physics
   }
   
   void display(){
-    for(Coll cl: balls){
+    for(int i=0; i<balls.size(); i++)
+    {
+      Coll cl;
+      cl = balls.get(i);
+      //cl.speed.mult(friction_move);
       if (cl.pos.x + cl.size.x/2 > width) {
         cl.pos.x = width - cl.size.x/2;
         cl.speed.x *= friction; 
@@ -31,6 +36,7 @@ class Physics
         cl.pos.y = cl.size.x/2;
         cl.speed.y *= friction; 
       }
+      collide(i);
     }
   }
   

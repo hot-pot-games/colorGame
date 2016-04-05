@@ -45,7 +45,6 @@ class InputManager{
   int chooseState;
   
   boolean pmousePressed;
-  PVector dragOffset;
   
   InputManager(){
     this.bts = new ArrayList<Clickable>();
@@ -53,7 +52,6 @@ class InputManager{
     this.nowc = null;
     this.hasSele = false;
     this.chooseState = STATE_NONE;
-    this.dragOffset  = new PVector(0,0);
   }
   
   void add(Clickable cb){
@@ -88,8 +86,6 @@ class InputManager{
       if(b.clickable){
         if(b.isIn(mouseX,mouseY)){
           if(STATE_CLICK >= chooseState){
-            dragOffset.x = b.pos.x-mouseX;
-            dragOffset.y = b.pos.y-mouseY;
             chooseState = STATE_CLICK;
             nowc        = b;
             hasSele     = true;
@@ -113,12 +109,12 @@ class InputManager{
       }
       else                 //MouseReleased鼠标释放的情况（鼠标之前一直在点击，现在松开了）
       {
-        if(nowc!=null){
-          nowc.releaseEvent();
-        }
-        hasSele       = false;
-        nowc          = null;
-        chooseState   = STATE_NONE;
+       if(nowc!=null){
+         nowc.releaseEvent();
+       }
+       hasSele       = false;
+       nowc          = null;
+       chooseState   = STATE_NONE;
       }
       pmousePressed = false;
     }
@@ -145,8 +141,9 @@ class InputManager{
     }  
     
     if(nowc!=null && hasSele){
-      nowc.display();
+       nowc.display();
        switch(chooseState){
+         case STATE_NONE:  break;
          case STATE_HOVER: nowc.drawHover(); break;
          case STATE_CLICK: nowc.drawClick(); break;
          case STATE_DRAG:  {

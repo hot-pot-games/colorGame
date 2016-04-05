@@ -1,34 +1,14 @@
+boolean isShowTail = true;
+int     tailNum    = 60;
+
 class Coll extends Clickable
 {
   PVector speed;
   PVector size;
   PVector force;
   color   col;
+  ArrayList<PVector>ppos;
   
-  //一堆构造函数
-  Coll(PVector ppos,PVector psi)
-  {
-    super.hoverable = true;
-    super.clickable = true;
-    super.draggable = true;
-    this.pos      = ppos.copy();
-    this.size     = psi.copy();
-    this.speed    = new PVector(0,0);
-    this.force    = new PVector(0,0);
-    this.col      = getRandomColor();
-  }
-  
-  Coll(float pox, float poy,float psx, float psy)
-  {
-    super.hoverable = true;
-    super.clickable = true;
-    super.draggable = true;
-    this.pos      = new PVector(pox,poy);
-    this.size     = new PVector(psx,psy);
-    this.speed    = new PVector(0,0);
-    this.force    = new PVector(0,0);
-    this.col      = getRandomColor();
-  }
   
    Coll(float pox, float poy,float ps)
   {
@@ -37,9 +17,10 @@ class Coll extends Clickable
     super.draggable = true;
     this.pos      = new PVector(pox,poy);
     this.size     = new PVector(ps,ps);
-    this.speed    = new PVector(0,0);
+    this.speed    = new PVector(random(-0.1,0.1),random(-0.1,0.1));
     this.force    = new PVector(0,0);
     this.col      = getRandomColor();
+    this.ppos       = new ArrayList<PVector>();
   }
   
   color getRandomColor(){
@@ -62,17 +43,51 @@ class Coll extends Clickable
     return false;
   }
   
-  
-  
-  void display()
-  {
+  void update(){
     this.speed.add(force);
     this.pos.add(speed);
     this.force.mult(0);
-    fill(col);
-    stroke(0);
-    strokeWeight(3);
-    ellipse(pos.x,pos.y,size.x,size.y);
+  }
+  
+  void display()
+  {
+    if(isShowTail && ppos.size()>0)
+    {
+      float trans = 0;
+      float step;
+      
+      step  = 255f/ppos.size();
+      
+      
+      for(PVector p: ppos){
+        fill(col,trans);
+        //stroke(80,trans);
+        //strokeWeight(1.5);
+        noStroke();
+        ellipse(p.x,p.y,size.x,size.y);
+        
+        trans+=step;
+      }
+    }
+    else
+    {
+      fill(col);
+      //stroke(80);
+      //strokeWeight(2);
+      noStroke();
+      ellipse(pos.x,pos.y,size.x,size.y);
+    }
+    
+    if(!isShowTail){
+      return;
+    }
+    if(ppos.size()<tailNum){
+      ppos.add(pos.copy());
+    }
+    else{
+      ppos.remove(0);
+      ppos.add(pos.copy());
+    }
     
   }
   
