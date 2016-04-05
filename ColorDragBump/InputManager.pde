@@ -133,7 +133,8 @@ class InputManager{
           float d = force.mag();                              
           d = constrain(d,5.0,25.0);
           force.normalize();
-          nowc.addForce(force.mult(d*0.01f));
+          nowc.addForce(force.mult(d*0.01f*ss));
+          chooseState = STATE_DRAG;
         }
       }
       else                  //mousePressed鼠标按下的情况（鼠标之前没有按下）
@@ -148,7 +149,12 @@ class InputManager{
        switch(chooseState){
          case STATE_HOVER: nowc.drawHover(); break;
          case STATE_CLICK: nowc.drawClick(); break;
-         case STATE_DRAG:  nowc.drawDrag();  break;
+         case STATE_DRAG:  {
+           nowc.drawDrag();
+           stroke(0,200,50);
+           line(nowc.pos.x,nowc.pos.y,mouseX,mouseY);
+         
+         }break;
        }
     }
     

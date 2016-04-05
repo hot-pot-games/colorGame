@@ -90,6 +90,10 @@ class Coll extends Clickable
   }
   
   void drawDrag(){
+    noFill();
+    stroke(200,0,0);
+    strokeWeight(3);
+    ellipse(pos.x,pos.y,size.x*1.4,size.y*1.4);
   }
   
   void clickEvent(){
