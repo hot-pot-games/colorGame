@@ -1,8 +1,8 @@
 final boolean GAME_OVER = false;
 final boolean NEXT_LEVEL = true;
 
-class Cell
-{
+class Cell{
+  
   PVector position;
   float length;
   color col;
