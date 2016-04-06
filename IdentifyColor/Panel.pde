@@ -41,10 +41,10 @@ class Panel {
     int index = (int)random(rowNumbers * rowNumbers);
     color diffColor = newColor;
     if (saturation(diffColor) + difficulty <= 100)
-     diffColor.setSaturation(saturation(diffColor) + difficulty);
+     diffColor = (saturation(diffColor) + difficulty);
     else
-     diffColor.setSaturation(diffColor.getSaturation() - difficulty);
-    //diffColor.setBrightness(diffColor.getSaturation() + difficulty);
+     diffColor.setSaturation(saturation(diffColor) - difficulty);
+    //diffColor.setBrightness(saturation(diffColor) + difficulty);
     cells[index].setColor(diffColor);
     cells[index].setDifferent(true);
     }
