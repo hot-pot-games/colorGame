@@ -52,9 +52,6 @@ class Panel {
     cells.get(index).col = diffColor;
     cells.get(index).isDifferent = true;
     
-    for(int i=0; i<cells.size(); i++){
-      println(cells.get(i).isDifferent);
-    }
   }
 
 
@@ -88,7 +85,7 @@ class Panel {
 
   void updateDifficulty()
   {
-    difficulty--;
+    difficulty-=2;
   }
 
   boolean isInside(float x, float y)

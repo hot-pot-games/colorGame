@@ -14,7 +14,7 @@ void setup()
   gameState = RUNNING;
   panel = new Panel(100, 200, 600, color(0, 0, 0));
   lv = "Lv:" + panel.level;
-  maxTime = 115*1000;
+  maxTime = 15*1000;
   timer   = millis();
   time = "Time:" + (maxTime-(millis()-timer))/1000f;
 }
@@ -39,13 +39,18 @@ void draw()
   lv = "Lv:" + panel.level;
   text(lv, 550, 120, 580, 150);
   time = "Time:" + (maxTime-(millis()-timer))/1000f;
+  if(gameState == GAME_OVER){
+    time = "Time:" + 0;
+  }
   text(time, 150, 120, 220, 150);
 
   if (gameState == GAME_OVER)
   {
     fill(color(360, 100, 100));
     textSize(100);
-    text("GAME OVER", 200, 500);
+    textAlign(CENTER,CENTER);
+    text("GAME OVER",400,500);
+    textAlign(LEFT);
   }
 }
 
@@ -62,6 +67,6 @@ void mousePressed()
   } 
   else if (panel.isInside(mouseX, mouseY))
   {
-    println("wrong");
+    gameState = GAME_OVER;
   }
 }
