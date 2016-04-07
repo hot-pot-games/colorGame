@@ -1,5 +1,5 @@
-final boolean GAME_OVER = false;
-final boolean NEXT_LEVEL = true;
+final int GAME_OVER = 0;
+final int NEXT_LEVEL = 1;
 
 class Cell{
   

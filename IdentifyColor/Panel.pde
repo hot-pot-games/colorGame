@@ -1,3 +1,5 @@
+final int Win = 3;
+
 class Panel {
   float locationX;
   float locationY;
@@ -28,7 +30,7 @@ class Panel {
     float startPosX = locationX + intval;
     float startPosY = locationY + intval;
     float cellLength = (length - (rowNumbers + 1) * intval) / rowNumbers;
-    color newColor = color(random(360), 50, 100);
+    color newColor = color(random(360), 49, 100);
 
     //initialize every cell
     for(int i=0; i<rowNumbers; i++)
@@ -80,17 +82,21 @@ class Panel {
 
   void updateRowNumber()
   {
-    rowNumbers++;
+      rowNumbers++;
   }
 
   void updateDifficulty()
   {
-    difficulty-=2;
+      difficulty -= 2;
   }
 
-  boolean isInside(float x, float y)
-  {
-    return (x - locationX <= length) && (y - locationY <= length);
+  boolean isInside(float x, float y){
+    if(x>locationX && x<locationX+length && y>locationY && y<locationY+length){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   boolean clicked(float x, float y)
@@ -106,5 +112,14 @@ class Panel {
       }
     } 
     return returnValue;
+  }
+  
+  void restart()
+  {
+    level = 1;
+    rowNumbers = 2;
+    difficulty = 50;
+    deleteCells();
+    initialize();
   }
 }
