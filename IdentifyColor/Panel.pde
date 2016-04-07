@@ -1,6 +1,5 @@
 class Panel {
-  float locationX;
-  float locationY;
+  PVector position;
   float length;
   color col;
   ArrayList<Cell> cells;
@@ -9,36 +8,41 @@ class Panel {
   int rowNumbers;
   int difficulty;
 
-  Panel(float x,float y,float l, color c)
+  Panel(PVector p, float l, color c)
   {
-    locationX = x;
-    locationY = y;
-    length = l;
-    col = c;
     level = 1;
     rowNumbers = 2;
     difficulty = 50;
     intval = 5;
-    cells = new ArrayList<Cell>();
     initialize();
   }
 
   void initialize()
   {
-    float startPosX = locationX + intval;
-    float startPosY = locationY + intval;
+    PVector startPos = position.add(new PVector(intval, intval));
     float cellLength = (length - (rowNumbers + 1) * intval) / rowNumbers;
     color newColor = color(random(360), 50, 100);
 
     //initialize every cell
     for(int i=0; i<rowNumbers; i++)
     {
+<<<<<<< HEAD
       for(int j=0; j<rowNumbers; j++)
       {
         float newPosX = startPosX + (i * (cellLength + intval));
         float newPosY = startPosY + (j * (cellLength + intval));
         Cell newCell = new Cell(newPosX,newPosY, cellLength, newColor);
         cells.add(newCell);
+=======
+      PVector newPos = startPos.add(new PVector(j++ * (cellLength + intval), 0));
+      Cell newCell = new Cell(newPos, cellLength, newColor);
+      cells.add(newCell);
+
+      if ((i+1)%rowNumbers == 0)
+      {
+        startPos.add(new PVector(0, cellLength + intval));
+        j = 0;
+>>>>>>> parent of 8d71860... 写完了 但是有bug 先传 去吃饭啦
       }
     }
 
@@ -46,8 +50,9 @@ class Panel {
     int index = (int)random(0,cells.size());
     color diffColor = newColor;
     if (saturation(diffColor) + difficulty <= 100)
-      diffColor = color(hue(diffColor), saturation(diffColor) + difficulty, brightness(diffColor));
+     diffColor = (saturation(diffColor) + difficulty);
     else
+<<<<<<< HEAD
       diffColor = color(hue(diffColor), saturation(diffColor) - difficulty, brightness(diffColor));
     cells.get(index).col = diffColor;
     cells.get(index).isDifferent = true;
@@ -107,4 +112,12 @@ class Panel {
     } 
     return returnValue;
   }
+=======
+     diffColor.setSaturation(saturation(diffColor) - difficulty);
+    //diffColor.setBrightness(saturation(diffColor) + difficulty);
+    cells[index].setColor(diffColor);
+    cells[index].setDifferent(true);
+    }
+  }
+>>>>>>> parent of 8d71860... 写完了 但是有bug 先传 去吃饭啦
 }

@@ -3,21 +3,20 @@ final boolean NEXT_LEVEL = true;
 
 class Cell{
   
-  float locationX;
-  float locationY;
+  PVector position;
   float length;
   color col;
   boolean isDifferent;
   
-  Cell(float x,float y,float l,color c)
+  Cell(PVector p,float l,color c)
   {
-    locationX = x;
-    locationY = y;
+    position = p.copy();
     length = l;
     col = c;
     isDifferent = false;
   }
   
+<<<<<<< HEAD
   boolean isInside(float x, float y){
     if(x>locationX && x<locationX+length && y>locationY && y<locationY+length){
       return true;
@@ -25,6 +24,11 @@ class Cell{
     else{
       return false;
     }
+=======
+  boolean isInside(int x,int y)
+  {
+    return (x - position.x <= length) && (y - position.y <= length);
+>>>>>>> parent of 8d71860... 写完了 但是有bug 先传 去吃饭啦
   }
   
   
@@ -33,6 +37,6 @@ class Cell{
   {
     fill(col);
     noStroke();
-    rect(locationX,locationY,length,length);
+    rect(position.x,position.y,length,length);
   }
 }
