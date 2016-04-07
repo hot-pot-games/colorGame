@@ -18,18 +18,16 @@ class Cell{
     isDifferent = false;
   }
   
-  boolean isInside(float x,float y)
-  {
-    return (x - locationX <= length) && (y - locationY <= length);
+  boolean isInside(float x, float y){
+    if(x>locationX && x<locationX+length && y>locationY && y<locationY+length){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
   
-  boolean checkWinOrLose()
-  {
-    if(isDifferent)
-      return NEXT_LEVEL;
-    else
-      return GAME_OVER;
-  }
+  
   
   void display()
   {
