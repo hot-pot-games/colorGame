@@ -3,22 +3,24 @@ final boolean NEXT_LEVEL = true;
 
 class Cell{
   
-  PVector position;
+  float locationX;
+  float locationY;
   float length;
   color col;
   boolean isDifferent;
   
-  Cell(PVector p,float l,color c)
+  Cell(float x,float y,float l,color c)
   {
-    position = p.copy();
+    locationX = x;
+    locationY = y;
     length = l;
     col = c;
     isDifferent = false;
   }
   
-  boolean isInside(int x,int y)
+  boolean isInside(float x,float y)
   {
-    return (x - position.x <= length) && (y - position.y <= length);
+    return (x - locationX <= length) && (y - locationY <= length);
   }
   
   boolean checkWinOrLose()
@@ -33,6 +35,6 @@ class Cell{
   {
     fill(col);
     noStroke();
-    rect(position.x,position.y,length,length);
+    rect(locationX,locationY,length,length);
   }
 }
