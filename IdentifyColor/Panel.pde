@@ -31,22 +31,19 @@ class Panel {
     color newColor = color(random(360), 50, 100);
 
     //initialize every cell
-    for (int i=0, j=i; i<rowNumbers * rowNumbers; i++)
+    for(int i=0; i<rowNumbers; i++)
     {
-      float newPosX = startPosX + (j * (cellLength + intval));
-      float newPosY = startPosY + (j++ * (cellLength + intval));
-      Cell newCell = new Cell(newPosX,newPosY, cellLength, newColor);
-      cells.add(newCell);
-
-      if ((i+1)%rowNumbers == 0)
+      for(int j=0; j<rowNumbers; j++)
       {
-        startPosY += cellLength + intval;
-        j = 0;
+        float newPosX = startPosX + (i * (cellLength + intval));
+        float newPosY = startPosY + (j * (cellLength + intval));
+        Cell newCell = new Cell(newPosX,newPosY, cellLength, newColor);
+        cells.add(newCell);
       }
     }
 
     //new the different one 
-    int index = (int)random(rowNumbers * rowNumbers);
+    int index = (int)random(0,cells.size());
     color diffColor = newColor;
     if (saturation(diffColor) + difficulty <= 100)
       diffColor = color(hue(diffColor), saturation(diffColor) + difficulty, brightness(diffColor));
@@ -54,6 +51,10 @@ class Panel {
       diffColor = color(hue(diffColor), saturation(diffColor) - difficulty, brightness(diffColor));
     cells.get(index).col = diffColor;
     cells.get(index).isDifferent = true;
+    
+    for(int i=0; i<cells.size(); i++){
+      println(cells.get(i).isDifferent);
+    }
   }
 
 
@@ -102,8 +103,9 @@ class Panel {
     {
       for (int i=0; i<cells.size(); i++)
       {
+        
         if (cells.get(i).isInside(x, y))
-          returnValue =  cells.get(i).checkWinOrLose();
+          returnValue =  cells.get(i).isDifferent;
       }
     } 
     return returnValue;
