@@ -1,15 +1,26 @@
 class Bubble{
   PVector pos;
+  PVector speed;
+  PVector force;
   float   radius;
   color   col;
   float   nowbase;
   
   
   Bubble(float x, float y, float r){
-    pos     = new PVector(x,y);
-    radius  = r;
-    nowbase = random(0,8);
-    col     = color(255,255,255);
+    this.pos     = new PVector(x,y);
+    this.speed   = new PVector(random(-5,5),random(-5,5));
+    this.force   = new PVector(0,0);
+    this.radius  = r;
+    this.nowbase = random(0,8);
+    this.col     = color(255,255,255);
+  }
+  
+  void updateExtra(){
+    nowbase += 1f;
+    if(nowbase>8){
+      nowbase-=8;
+    }
   }
   
   void update(){
@@ -33,6 +44,10 @@ class Bubble{
     if(nowbase>8){
       nowbase-=8;
     }
+    
+    this.speed.add(force);
+    this.pos.add(speed);
+    this.force.mult(0);
   }
   
   void display(){
@@ -43,5 +58,10 @@ class Bubble{
     image(bubbleTexture,0,0,radius*1.1,radius*1.1);
     noTint();
     popMatrix();
+  }
+  
+  void addForce(PVector fo)
+  {
+    this.force.add(fo);
   }
 }
