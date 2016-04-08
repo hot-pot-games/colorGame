@@ -1,12 +1,26 @@
-class Particle{
-  boolean locked = false;
-  Particle xPos,yPos,xNeg,yBeg;  //四个方向接连的Particle
-  
-  //物理数值
-  double mass = 1.0;
-  PVector x;                   //位置坐标
-  PVector speed;               //速度
-  PVector x0;                  //材质坐标
-  PVector fExt;                //外部受力
+abstract class Mover{
+  PVector pos;
+  PVector speed;
+  PVector force;
 
+  float   mass;
+  boolean isLocked;
+  
+  Mover() {
+    this.mass     = 0;
+    this.pos      = new PVector(0, 0);
+    this.speed    = new PVector(0, 0);
+    this.force    = new PVector(0, 0);
+    this.isLocked = false;
+  }
+  
+  abstract void display();
+  abstract void update();
+}
+
+
+
+
+class Physics{
+  
 }

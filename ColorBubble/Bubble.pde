@@ -16,8 +16,8 @@ class Bubble{
     this.col     = color(255,255,255);
   }
   
-  void updateExtra(){
-    nowbase += 1f;
+  void updateExtra(float ext){
+    nowbase += ext;
     if(nowbase>8){
       nowbase-=8;
     }

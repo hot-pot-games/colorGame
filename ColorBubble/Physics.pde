@@ -19,7 +19,7 @@ class Physics
     {
       Bubble bl;
       bl = balls.get(i);
-      bl.speed.mult(friction_move);
+      //bl.speed.mult(friction_move);
       if (bl.pos.x + bl.radius/2> width) {
         bl.pos.x = width - bl.radius/2;
         bl.speed.x *= friction; 
@@ -58,6 +58,8 @@ class Physics
         a.speed.y -= ay;
         b.speed.x += ax;
         b.speed.y += ay;
+        a.updateExtra(0.2f);
+        b.updateExtra(0.2f);
       }
     }   
   }
