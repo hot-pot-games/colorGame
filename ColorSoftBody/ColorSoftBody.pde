@@ -5,7 +5,7 @@ Chunk ck;
 void setup()
 {
   size(1280,720);
-  ck = new Chunk(new PVector(300,200));
+  ck = new Chunk(new PVector(640,360));
   ck.loadShape(bp_man,intervalBetweenParticls);
 }
 

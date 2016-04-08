@@ -10,13 +10,11 @@ class Chunk extends Mover
   //float   mass;
   //boolean isLocked;
   ArrayList<Particle>ps;
-  PVector centerP;
   
   Chunk(PVector ppos){
     super();
     super.pos  = ppos.copy();
     super.mass = 0;
-    centerP    = new PVector(0,0);
     ps = new ArrayList<Particle>();
   }
   
@@ -35,16 +33,17 @@ class Chunk extends Mover
     pushMatrix();
     translate(pos.x,pos.y);
     
-    fill(255,0,0);
-    stroke(0);
-    strokeWeight(4);
-    ellipse(centerP.x,centerP.y,mass*massScale,mass*massScale);
-    
     for(Particle p: ps){
       p.display();
     }
     
     popMatrix();
+    
+    fill(255,0,0);
+    stroke(0);
+    strokeWeight(2);
+    
+    ellipse(pos.x,pos.y,10,10);
   }
   
   void loadShape(float[][] blueprint, float interval){
@@ -67,7 +66,7 @@ class Chunk extends Mover
         weight = blueprint[i][j];
         if(weight>0.05f){
           Particle p;
-          p = new Particle(new PVector(pos.x+j*interval,pos.y+i*interval),weight*blueprintK);
+          p = new Particle(new PVector(j*interval,i*interval),weight*blueprintK);
           pp[i][j] = p;
           this.add(p);
         }  
@@ -105,7 +104,8 @@ class Chunk extends Mover
   }
   
   void recalPos(){
-    PVector np = new PVector();
+    
+    PVector np = new PVector(0,0);
     float   nm = 0;
     
     for(Particle p: ps){
@@ -114,8 +114,12 @@ class Chunk extends Mover
       nm += p.mass;
     }
     
+    for(Particle p: ps){
+      p.pos.x -= np.x;
+      p.pos.y -= np.y;
+    }
+    
     this.mass = nm;
-    this.centerP = np.copy();
   }
   
 }
