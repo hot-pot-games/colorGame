@@ -1,10 +1,12 @@
+float intervalBetweenParticls = 30f;
+
 Chunk ck;
 
 void setup()
 {
   size(1280,720);
   ck = new Chunk(new PVector(300,200));
-  ck.add(new Particle(new PVector(300,200),20));
+  ck.loadShape(bp_man,intervalBetweenParticls);
 }
 
 void draw()

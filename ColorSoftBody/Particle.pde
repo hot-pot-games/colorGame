@@ -11,6 +11,7 @@ class Particle extends Mover
 
   //float   mass;
   //boolean isLocked;
+  Particle xp,xn,yp,yn; //四方形连接的Particle
   
   PVector size;
 
@@ -38,5 +39,12 @@ class Particle extends Mover
       fill(freeColor);
     }
     ellipse(pos.x, pos.y, size.x, size.y);
+  }
+  
+  void setMates(Particle xxp, Particle xxn, Particle yyp, Particle yyn){
+    this.xp = xxp;
+    this.xn = xxn;
+    this.yp = yyp;
+    this.yn = yyn;
   }
 }
