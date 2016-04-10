@@ -28,6 +28,7 @@ class Chunk extends Mover
     for(Particle p: ps){
       p.update();
     }
+    recalCenterPos();
   }
   
   void display(){
@@ -89,10 +90,10 @@ class Chunk extends Mover
           yyp = pp[i+1][j];
         }
         if(j!=0){
-          yyn = pp[i][j-1];
+          xxn = pp[i][j-1];
         }
         if(j!=yy-1){
-          yyp = pp[i][j+1];
+          xxp = pp[i][j+1];
         }
         
         pp[i][j].setMates(xxp,xxn,yyp,yyn);
@@ -119,6 +120,22 @@ class Chunk extends Mover
     
     this.mass = nm;
     
+    
+  }
+  
+  void recalCenterPos(){
+    
+    PVector np = new PVector(0,0);
+    float   nm = 0;
+    
+    for(Particle p: ps){
+      np.x = (np.x*nm+p.pos.x*p.mass)/(nm+p.mass);
+      np.y = (np.y*nm+p.pos.y*p.mass)/(nm+p.mass);
+      nm += p.mass;
+    }
+    
+    this.mass = nm;
+    this.pos = np;
     
   }
   

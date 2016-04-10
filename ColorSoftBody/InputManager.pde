@@ -47,6 +47,8 @@ class InputManager {
       strokeWeight(2);
       fill(#9D1616);
       ellipse(mouseX, mouseY, 20, 20);
+      
+      println(null==sp.xn);
     }
   }
 }

@@ -1,6 +1,7 @@
 color lockColor = #F07368;
 color freeColor = #68F072;
 float massScale = 1f;
+float hookK = 0.02f;
 
 class Particle extends Mover
 {
@@ -14,6 +15,7 @@ class Particle extends Mover
   Particle xp,xn,yp,yn; //四方形连接的Particle
   Chunk parent;
   PVector size;
+  
 
   Particle(PVector ppos, float pmass, Chunk par) {
     super();
@@ -33,11 +35,48 @@ class Particle extends Mover
     }
   }
   
+  PVector getHookForce(Particle p){
+    PVector pf;
+    pf = new PVector(0,0);
+    PVector force;
+    force = new PVector(p.pos.x-pos.x,p.pos.y-pos.y);
+    float d = force.mag();
+    force.normalize();
+    if(d>intervalBetweenParticls){
+      d = d - intervalBetweenParticls;
+    }
+    else{
+      d = intervalBetweenParticls-d;
+      force.mult(-1);
+    }
+    
+    pf = force.mult(d*hookK);
+    
+    return pf;
+  }
 
   void update() {
     if(isLocked){
       return;
     }
+    
+    PVector f;
+    f = new PVector(0,0);
+    if(xn!=null){
+      f.add(getHookForce(xn));
+    }
+    if(yn!=null){
+      f.add(getHookForce(yn));
+    }
+    if(xp!=null){
+      f.add(getHookForce(xp));
+    }
+    if(yp!=null){
+      f.add(getHookForce(yp));
+    }
+    
+    this.force.add(f);
+    
     this.speed.add(force);
     float d = speed.mag();
     d = constrain(d,-15.0,15.0);
@@ -46,6 +85,8 @@ class Particle extends Mover
     
     this.pos.add(speed);
     this.force.mult(0);
+    
+    this.speed.mult(0.95);
   }
 
   void display() {
