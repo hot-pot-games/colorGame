@@ -31,14 +31,10 @@ class Chunk extends Mover
   }
   
   void display(){
-    pushMatrix();
-    translate(pos.x,pos.y);
     
     for(Particle p: ps){
       p.display();
     }
-    
-    popMatrix();
     
     fill(255,0,0);
     stroke(0);
@@ -67,7 +63,7 @@ class Chunk extends Mover
         weight = blueprint[i][j];
         if(weight>0.05f){
           Particle p;
-          p = new Particle(new PVector(j*interval,i*interval),weight*blueprintK,this);
+          p = new Particle(new PVector(pos.x+j*interval,pos.y+i*interval),weight*blueprintK,this);
           pp[i][j] = p;
           im.add(p);
           this.add(p);
@@ -117,11 +113,13 @@ class Chunk extends Mover
     }
     
     for(Particle p: ps){
-      p.pos.x -= np.x;
-      p.pos.y -= np.y;
+     p.pos.x -= (np.x-pos.x);
+     p.pos.y -= (np.y-pos.y);
     }
     
     this.mass = nm;
+    
+    
   }
   
 }

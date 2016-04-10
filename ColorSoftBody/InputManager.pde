@@ -28,20 +28,19 @@ class InputManager {
     } 
     else {
       PVector force;
-      force = new PVector(mouseX-im.sp.X(), mouseY-im.sp.Y());
+      force = new PVector(mouseX-im.sp.pos.x, mouseY-im.sp.pos.y);
 
       float d;
 
       d = force.mag();          
 
-      //println("mouseX: "+mouseX+"  im.sp.X():" + im.sp.parent.pos.x+ " + "+im.sp.pos.x);
       d = constrain(d, 0, 25.0);
       force.normalize();
       im.sp.applyForce(force.mult(d*forceScale));
 
       stroke(0);
       strokeWeight(2);
-      line(sp.X(), sp.Y(), mouseX, mouseY);
+      line(sp.pos.x, sp.pos.y, mouseX, mouseY);
 
       sp.drawDragged();
       stroke(0);

@@ -24,13 +24,8 @@ class Particle extends Mover
   }
   
   boolean isIn(int mx, int my){
-    float tx,ty;
     
-    tx = parent.pos.x+pos.x;
-    ty = parent.pos.y+pos.y;
-    
-    
-    if(dist(mx,my,tx,ty)<size.x/2){
+    if(dist(mx,my,pos.x,pos.y)<size.x/2){
       return true;
     }
     else{
@@ -38,13 +33,6 @@ class Particle extends Mover
     }
   }
   
-  float X(){
-    return parent.pos.x+pos.x;
-  }
-  
-  float Y(){
-    return parent.pos.y+pos.y;
-  }
 
   void update() {
     if(isLocked){
@@ -71,23 +59,17 @@ class Particle extends Mover
   }
   
   void drawHover(){
-    pushMatrix();
-    translate(parent.pos.x,parent.pos.y);
     stroke(0);
     strokeWeight(2);
     fill(100,200);
     ellipse(pos.x, pos.y, size.x, size.y);
-    popMatrix();
   }
   
   void drawDragged(){
-    pushMatrix();
-    translate(parent.pos.x,parent.pos.y);
     stroke(0);
     strokeWeight(2);
     fill(#22892A);
     ellipse(pos.x, pos.y, size.x, size.y);
-    popMatrix();
   }
   
   
