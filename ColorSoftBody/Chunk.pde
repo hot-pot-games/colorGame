@@ -1,4 +1,5 @@
 float blueprintK = 20f;
+float forceScale = 0.04f;
 
 class Chunk extends Mover
 {
@@ -66,8 +67,9 @@ class Chunk extends Mover
         weight = blueprint[i][j];
         if(weight>0.05f){
           Particle p;
-          p = new Particle(new PVector(j*interval,i*interval),weight*blueprintK);
+          p = new Particle(new PVector(j*interval,i*interval),weight*blueprintK,this);
           pp[i][j] = p;
+          im.add(p);
           this.add(p);
         }  
       }
