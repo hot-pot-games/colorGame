@@ -25,10 +25,10 @@ class Chunk extends Mover
   }
   
   void update(){
+    recalCenterPos();
     for(Particle p: ps){
       p.update();
     }
-    recalCenterPos();
   }
   
   void display(){
@@ -116,12 +116,13 @@ class Chunk extends Mover
     for(Particle p: ps){
      p.pos.x -= (np.x-pos.x);
      p.pos.y -= (np.y-pos.y);
+     p.distToP = dist(pos.x,pos.y,p.pos.x,p.pos.y);
     }
     
     this.mass = nm;
     
-    
   }
+  
   
   void recalCenterPos(){
     
@@ -134,7 +135,6 @@ class Chunk extends Mover
       nm += p.mass;
     }
     
-    this.mass = nm;
     this.pos = np;
     
   }

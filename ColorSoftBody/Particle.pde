@@ -14,6 +14,7 @@ class Particle extends Mover
   //boolean isLocked;
   Particle xp,xn,yp,yn; //四方形连接的Particle
   Chunk parent;
+  float distToP;
   PVector size;
   
 
@@ -23,6 +24,7 @@ class Particle extends Mover
     super.pos      = ppos.copy();
     this.size      = new PVector(mass*massScale, mass*massScale);
     this.parent    = par;
+    this.distToP   = 0;
   }
   
   boolean isIn(int mx, int my){
@@ -35,18 +37,18 @@ class Particle extends Mover
     }
   }
   
-  PVector getHookForce(Particle p){
+  PVector getHookForce(Mover p, float dis){
     PVector pf;
     pf = new PVector(0,0);
     PVector force;
     force = new PVector(p.pos.x-pos.x,p.pos.y-pos.y);
     float d = force.mag();
     force.normalize();
-    if(d>intervalBetweenParticls){
-      d = d - intervalBetweenParticls;
+    if(d>dis){
+      d = d - dis;
     }
     else{
-      d = intervalBetweenParticls-d;
+      d = dis-d;
       force.mult(-1);
     }
     
@@ -54,6 +56,7 @@ class Particle extends Mover
     
     return pf;
   }
+  
 
   void update() {
     if(isLocked){
@@ -63,18 +66,20 @@ class Particle extends Mover
     PVector f;
     f = new PVector(0,0);
     if(xn!=null){
-      f.add(getHookForce(xn));
+      f.add(getHookForce(xn,intervalBetweenParticls));
     }
     if(yn!=null){
-      f.add(getHookForce(yn));
+      f.add(getHookForce(yn,intervalBetweenParticls));
     }
     if(xp!=null){
-      f.add(getHookForce(xp));
+      f.add(getHookForce(xp,intervalBetweenParticls));
     }
     if(yp!=null){
-      f.add(getHookForce(yp));
+      f.add(getHookForce(yp,intervalBetweenParticls));
     }
-    
+    if(im.hasSele!=true){
+      f.add(getHookForce(parent,distToP).mult(1));
+    }
     this.force.add(f);
     
     this.speed.add(force);
