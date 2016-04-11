@@ -122,4 +122,13 @@ class Panel {
     deleteCells();
     initialize();
   }
+  
+  void continueGame()
+  {
+    level = 26;
+    rowNumbers = 20;
+    difficulty = 4;
+    deleteCells();
+    initialize();
+  }
 }

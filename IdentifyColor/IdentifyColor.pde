@@ -9,6 +9,7 @@ int    temp;
 String lv;
 String time;
 boolean pressSpace;
+static int maxLevel;
 
 void setup()
 {
@@ -22,6 +23,7 @@ void setup()
   timer = millis();
   time = "Time:" + (maxTime - (millis() - timer))/1000f;
   pressSpace = false;
+  maxLevel = 0;
 }
 
 void draw()
@@ -38,27 +40,36 @@ void draw()
   lv = "Lv:" + panel.level;
   text(lv, 550, 120, 580, 150);
   time = "Time:" + (maxTime - (millis() - timer))/1000f;
+  
   if(gameState == GAME_OVER){
+    time = "Time:" + 0;
+  }
+  if(gameState == WIN){
     time = "Time:" + 0;
   }
   text(time, 150, 120, 220, 150);
 
   if (gameState == GAME_OVER)
   {
+    if(maxLevel <= panel.level)
+      maxLevel = panel.level;
+    
     timer = millis() - maxTime;
     panel.deleteCells();
     fill(color(360, 100, 100));
     textSize(100);
     textAlign(CENTER,CENTER);
-    text("GAME OVER",400,500);
+    text("GAME OVER",400,400);
     textSize(20);
     textAlign(CENTER,CENTER);
-    text("press v to restart",400,600);
+    text("Your highest grade : Lv " + maxLevel,400,600);
+    text("press v to restart",400,650);
     textAlign(LEFT);
   }
   
   if (gameState == WIN)
   {
+    //timer = millis() - maxTime;
     panel.deleteCells();
     fill(color(360, 100, 100));
     textSize(100);
@@ -76,14 +87,25 @@ void mousePressed()
   if (panel.clicked(mouseX, mouseY))
   {
     if(panel.level < 25)
+    {
+      gameState = RUNNING;  
       panel.updateLevel();
-    else
+    }
+    else if(panel.level == 25)
+    {
       gameState = WIN;  
+    }
+    else
+    {
+      gameState = RUNNING;  
+      panel.updateLevel();
+    }
       
     if(panel.rowNumbers < 20)
       panel.updateRowNumber();
-    if(panel.difficulty > 2)
+    if(panel.difficulty > 4)
       panel.updateDifficulty();
+      
     panel.deleteCells();
     panel.initialize();
     timer = millis();
@@ -97,6 +119,7 @@ void mousePressed()
 
 void keyPressed()
 {
+  //pause
   if(key == ' ' && !pressSpace)
   {
     pressSpace = !pressSpace;
@@ -109,7 +132,7 @@ void keyPressed()
     timer = millis() - temp;
     loop();
   }
-  
+  //restart
   if(key == 'v' && gameState == GAME_OVER)
   {
     gameState = RUNNING;
@@ -118,5 +141,15 @@ void keyPressed()
     time = "Time:" + (maxTime - (millis() - timer))/1000f;
     pressSpace = false;
     panel.restart();
+  }
+  //continueGame
+  if(key == 'c' && gameState == WIN)
+  {
+    gameState = RUNNING;
+    temp = 0;
+    timer = millis();
+    time = "Time:" + (maxTime - (millis() - timer))/1000f;
+    pressSpace = false;
+    panel.continueGame();
   }
 }
