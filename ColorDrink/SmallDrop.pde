@@ -6,7 +6,7 @@ class SmallDrop extends Drop{
   SmallDrop(PVector ppos, float pmass,color pcol,Drop tt)
   {
     super(ppos,pmass);
-    super.col = pcol;
+    this.col = pcol;
     this.target = tt;
     int reachTime = (int)random(200,500);
     float xv,yv;
@@ -27,7 +27,7 @@ class SmallDrop extends Drop{
   }
   
   boolean isReached(){
-    if(pos.dist(target.pos)<mass*density/2f+target.mass*target.density/2f){
+    if(pos.dist(target.pos) < mass * density / 2f + target.mass * target.density / 2f){
       return true;
     }
     else{
