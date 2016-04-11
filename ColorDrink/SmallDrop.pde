@@ -8,7 +8,7 @@ class SmallDrop extends Drop{
     super(ppos,pmass);
     this.col = pcol;
     this.target = tt;
-    int reachTime = (int)random(200,500);
+    int reachTime = (int)(random(6000,15000) / tt.mass);
     float xv,yv;
     xv = (tt.pos.x-pos.x)/reachTime;
     yv = (tt.pos.y-pos.y)/reachTime;
