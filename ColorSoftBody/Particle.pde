@@ -13,6 +13,7 @@ class Particle extends Mover
   //float   mass;
   //boolean isLocked;
   Particle xp,xn,yp,yn; //四方形连接的Particle
+  Particle anchor;
   Chunk parent;
   float distToP;
   PVector size;
@@ -25,7 +26,14 @@ class Particle extends Mover
     this.size      = new PVector(mass*massScale, mass*massScale);
     this.parent    = par;
     this.distToP   = 0;
+    this.anchor    = null;
   }
+  
+  void anc(Particle p){
+    this.anchor = p;
+    this.distToP = dist(p.pos.x,p.pos.y,pos.x,pos.y);
+  }
+  
   
   boolean isIn(int mx, int my){
     
@@ -77,9 +85,11 @@ class Particle extends Mover
     if(yp!=null){
       f.add(getHookForce(yp,intervalBetweenParticls));
     }
-    if(im.hasSele!=true){
-      f.add(getHookForce(parent,distToP).mult(1));
-    }
+    //if(im.hasSele!=true){
+    //  f.add(getHookForce(parent,distToP).mult(1));
+    //}
+    f.add(getHookForce(anchor,distToP).mult(1));
+    
     this.force.add(f);
     
     this.speed.add(force);

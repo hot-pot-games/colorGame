@@ -8,7 +8,7 @@ void setup()
   size(1280,720);
   im = new InputManager();
   ck = new Chunk(new PVector(640,360));
-  ck.loadShape(bp_man,intervalBetweenParticls);
+  ck.loadShape(bp_chair,intervalBetweenParticls);
 }
 
 void draw()

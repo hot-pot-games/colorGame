@@ -99,6 +99,24 @@ class Chunk extends Mover
         pp[i][j].setMates(xxp,xxn,yyp,yyn);
       }
     }
+    pp[0][1].anc(pp[3][5]);
+    pp[1][1].anc(pp[7][5]);
+    pp[2][1].anc(pp[7][5]);
+    pp[3][1].anc(pp[7][5]);
+    pp[3][2].anc(pp[7][5]);
+    pp[3][3].anc(pp[7][1]);
+    pp[3][4].anc(pp[7][1]);
+    pp[3][5].anc(pp[7][1]);
+    pp[4][1].anc(pp[7][5]);
+    pp[5][1].anc(pp[7][5]);
+    pp[6][1].anc(pp[3][5]);
+    pp[7][1].anc(pp[3][5]);
+    pp[4][5].anc(pp[7][1]);
+    pp[5][5].anc(pp[0][1]);
+    pp[6][5].anc(pp[0][1]);
+    pp[7][5].anc(pp[0][1]);
+    
+    
     recalPos();
   }
   
@@ -116,7 +134,7 @@ class Chunk extends Mover
     for(Particle p: ps){
      p.pos.x -= (np.x-pos.x);
      p.pos.y -= (np.y-pos.y);
-     p.distToP = dist(pos.x,pos.y,p.pos.x,p.pos.y);
+     //p.distToP = dist(pos.x,pos.y,p.pos.x,p.pos.y);
     }
     
     this.mass = nm;
