@@ -13,10 +13,10 @@ static int maxLevel;
 
 void setup()
 {
-  size(800, 900);
+  size(800, 800);
   colorMode(HSB, 360, 100, 100);
   gameState = RUNNING;
-  panel = new Panel(100, 200, 600, color(0, 0, 0));
+  panel = new Panel(100, 100, 600, color(0, 0, 0));
   lv = "Lv:" + panel.level;
   temp = 0;
   maxTime = 15*1000;
@@ -38,7 +38,7 @@ void draw()
   fill(color(360, 100, 100));
   textSize(30);
   lv = "Lv:" + panel.level;
-  text(lv, 550, 120, 580, 150);
+  text(lv, 550, 20, 580, 50);
   time = "Time:" + (maxTime - (millis() - timer))/1000f;
   
   if(gameState == GAME_OVER){
@@ -47,7 +47,7 @@ void draw()
   if(gameState == WIN){
     time = "Time:" + 0;
   }
-  text(time, 150, 120, 220, 150);
+  text(time, 150, 20, 220, 50);
 
   if (gameState == GAME_OVER)
   {
@@ -59,11 +59,11 @@ void draw()
     fill(color(360, 100, 100));
     textSize(100);
     textAlign(CENTER,CENTER);
-    text("GAME OVER",400,400);
+    text("GAME OVER",400,300);
     textSize(20);
     textAlign(CENTER,CENTER);
-    text("Your highest grade : Lv " + maxLevel,400,600);
-    text("press v to restart",400,650);
+    text("Your highest grade : Lv " + maxLevel,400,500);
+    text("press v to restart",400,550);
     textAlign(LEFT);
   }
   
@@ -74,10 +74,10 @@ void draw()
     fill(color(360, 100, 100));
     textSize(100);
     textAlign(CENTER,CENTER);
-    text("YOU WIN",400,500);
+    text("YOU WIN",400,400);
     textSize(20);
     textAlign(CENTER,CENTER);
-    text("press c to continue",400,600);
+    text("press c to continue",400,500);
     textAlign(LEFT);
   }
 }

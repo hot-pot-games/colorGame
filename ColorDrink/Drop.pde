@@ -82,23 +82,25 @@ class Drop{
   
   void massLerp()
   {
-    mass = abs(mass-targetMass)<massStep?targetMass:mass>targetMass?mass-massStep:mass+massStep;
+    mass = abs(mass - targetMass) < massStep ? targetMass : mass > targetMass ? mass - massStep : mass + massStep;
   }
   
   void colorLerp()
   {
-    r = abs(r-tr)<colorStep?tr:r>tr?r-colorStep:r+colorStep;
-    g = abs(g-tg)<colorStep?tg:g>tg?g-colorStep:g+colorStep;
-    b = abs(b-tb)<colorStep?tb:b>tb?b-colorStep:b+colorStep;
+    r = abs(r - tr) < colorStep ? tr : r > tr ? r - colorStep : r + colorStep;
+    g = abs(g - tg) < colorStep ? tg : g > tg ? g - colorStep : g + colorStep;
+    b = abs(b - tb) < colorStep ? tb : b > tb ? b - colorStep : b + colorStep;
       
     col = color(r * 255.0f,g * 255.0f,b * 255.0f);
   }
   
   boolean isAbove(Drop that){
-    if(this.pos.dist(that.pos)<this.mass*this.density/2f-that.mass*that.density/2f){
+    if(this.pos.dist(that.pos) < this.mass * this.density / 2f - that.mass * that.density / 2f)
+    {
       return true;
     }
-    else{
+    else
+    {
       return false;
     }
   }
