@@ -15,6 +15,11 @@ void draw(){
 
   scale(scales);
   ellipse(0,0,10,10);
+  ellipse(-10,0,10,10);
+  ellipse(-20,0,10,10);
+  ellipse(-20,-10,10,10);
+  ellipse(10,0,10,10);
+  ellipse(0,10,10,10);
 }
 
 void mouseMoved(){
@@ -27,6 +32,12 @@ void mouseDragged(){
 
 void mouseWheel(MouseEvent event) {
   float e = event.getCount();
-  scales+=e*0.2;
+  if(e>0){
+    scales*=1.1;
+  }
+  else{
+    scales*=0.9;
+  }
+  
   println(scales);
 }
