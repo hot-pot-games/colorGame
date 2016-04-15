@@ -13,20 +13,20 @@ class ConChan{
   void display(){
     strokeWeight(0.02);
     stroke(#46C654);
-    ellipse(x,y,0.83,0.83);
+    ellipse(x,y,0.8,0.8);
   }
   
   void drawDot(float rate){
     float rx,ry;
-    rx = 0.36*cos(PI*rate);
-    ry = 0.36*sin(PI*rate);
+    rx = 0.4*cos(PI*rate);
+    ry = 0.4*sin(PI*rate);
     ellipse(rx+x,ry+y,0.1,0.1);
   }
   
   PVector getDot(float rate){
     float rx,ry;
-    rx = 0.36*cos(PI*rate);
-    ry = 0.36*sin(PI*rate);
+    rx = 0.38*cos(PI*rate);
+    ry = 0.38*sin(PI*rate);
     return new PVector(rx,ry);
   }
   
