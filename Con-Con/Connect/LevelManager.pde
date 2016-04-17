@@ -1,0 +1,78 @@
+final int LEVEL_TOTAL = 1;
+
+class LevelManager {
+
+  LevelManager() {
+  }
+
+  void loadLevel(int num) {
+    if (num>=LEVEL_TOTAL) 
+    {
+      println("ERROR: loadLevel()使用了过大的关卡号");
+    }
+    Table ct, st;
+    ct = loadTable("level"+num+"_cell.csv");
+    st = loadTable("level"+num+"_sys.csv");
+    if (ct==null) 
+    {
+      println("ERROR: 关卡文件“levle0_cell.csv”没有找到");
+      return;
+    }
+    if (st==null) 
+    {
+      println("ERROR: 关卡文件“levle0_cell.csv”没有找到");
+      return;
+    }
+    
+    int xc,yc;
+    xc = ct.getRowCount();
+    yc = ct.getColumnCount();
+    
+    Cell[][] cs;
+    cs = new Cell[xc][];
+    for(int m=0; m<xc; m++){
+     cs[m] = new Cell[yc];
+     for(int n=0; n<yc; n++){
+       cs[m][n] = null;
+     }
+    }
+    
+  
+    for (int i=0; i<xc; i++) 
+    {
+      TableRow clr = ct.getRow(i);
+      for (int j=0; j<yc; j++) 
+      {
+        String[] str = clr.getString(j).split(":");
+        int choice = parseInt(str[0]);
+
+        if (choice==2) {
+          float r, g, b;
+          r = parseFloat(str[1]);
+          g = parseFloat(str[2]);
+          b = parseFloat(str[3]);
+          Cell tc;
+          tc = new Cell(j,i);
+          med.add(tc);
+          tc.poison(new Color(r,g,b));
+          println("a");
+        } 
+        else if (choice==1) 
+        {
+          Cell tc;
+          tc = new Cell(j,i);
+          med.add(tc);
+        }
+      }
+    }
+  }
+}
+
+//levelxx_cell.csv说明
+//0表示空白
+//1表示安全格
+//2表示有毒格（格式为2:0.2:0.2:0.2,）
+
+//levelxx_sys.csv说明
+//1表示有活菌的色滴（格式为1:0:0:0.3:0.5:0.5表示坐标以及颜色）
+//2表示终点

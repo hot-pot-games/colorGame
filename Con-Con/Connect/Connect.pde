@@ -11,16 +11,17 @@ void settings(){
 
 
 //全局变量
-
+LevelManager lm;
 Medium med;
 
 void setup(){
-  ConChan c = new ConChan(new Color(0.2,0.6,0.8));
-  Cell cl = new Cell(0,0);
-  cl.poison(new Color(0.8,0.6,0));
-  cl.live(c);
-  med = new Medium(new PVector(width/2-10,height/2-10),100,1);
-  med.add(cl);
+  //ConChan c = new ConChan(new Color(0.2,0.6,0.8));
+  //Cell cl = new Cell(0,0);
+  //cl.poison(new Color(0.8,0.6,0));
+  //cl.live(c);
+  lm = new LevelManager();
+  med = new Medium(new PVector(width/2,height/2),100,1);
+  lm.loadLevel(0);
 }
 
 
