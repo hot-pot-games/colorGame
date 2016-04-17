@@ -13,6 +13,9 @@ void settings(){
 //全局变量
 LevelManager lm;
 Medium med;
+PImage backP;
+PImage startP;
+PImage endP;
 
 void setup(){
   //ConChan c = new ConChan(new Color(0.2,0.6,0.8));
@@ -22,6 +25,9 @@ void setup(){
   lm = new LevelManager();
   med = new Medium(new PVector(width/2,height/2),100,1);
   lm.loadLevel(0);
+  backP =loadImage("back.jpg");
+  startP =loadImage("start.png");
+  endP   =loadImage("flag.png");
 }
 
 
