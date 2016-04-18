@@ -39,7 +39,6 @@ class ScrollBar extends Clickable{
     if (abs(newspos - spos) >= 0) {
       spos = spos + (newspos-spos)/loose;
     }
-    println(getValue());
   }
 
   void display() {

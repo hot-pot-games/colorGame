@@ -1,4 +1,4 @@
-class Button extends Clickable{
+ class Button extends Clickable{
   String text;
   
   Button(PVector p,PVector s,String t)
@@ -9,19 +9,36 @@ class Button extends Clickable{
   }
   
   void update() {
-    if (isHover()) 
-      over = true;
-    else 
-      over = false;
+     if(mousePressed)
+     {
+       if(isHover())
+       {
+         pressed = true;
+         over = false;  
+       }
+     }
+     else if(isHover())
+     {
+       pressed = false;
+       over = true;
+     }
+     else
+     {
+       pressed = false;
+       over = false;
+     }
   }
   
   void display()
   {
     noStroke();
-    if (over) 
+ 
+    if (pressed) 
       fill(0);
-    else 
+    else if(over)
       fill(102);
+    else
+      fill(204);
     rect(position.x, position.y, size.x, size.y);
   }
 }

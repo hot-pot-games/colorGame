@@ -1,4 +1,4 @@
-EditPanel ep;
+ EditPanel ep;
 ArrayList<Cell> cells;
 PVector startDrawPos;
 
@@ -24,7 +24,11 @@ void draw()
   }
 }
 
-void mousePressed()
+void mouseClicked()
 {
-  
+  if(ep.OKButton.isHover())
+  {
+    cells.clear();
+    ep.OKButton.clickEvent(ep.rowNumber.getValue(),ep.colNumber.getValue());
+  }
 }

@@ -1,4 +1,4 @@
-final float cellLength = 20.0f;
+final float cellLength = 50.0f;
 
 class Cell{
   
@@ -14,7 +14,7 @@ class Cell{
   {
     this.position = p;
 
-    this.col = color(255);
+    this.col = color(0);
     this.isDestination = false;
     this.specialEvent = 0;
     this.isPoisonous = false;
@@ -32,8 +32,9 @@ class Cell{
   
   void display()
   {
-    fill(col);
-    noStroke();
+    noFill();
+    stroke(0);
+    strokeWeight(2);
     rect(position.x,position.y,cellLength,cellLength);
   }
 }
