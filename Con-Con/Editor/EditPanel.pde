@@ -63,6 +63,9 @@ class EditPanel{
     b.update();
     b.display();
     
+    fill(color(r.getValue(),g.getValue(),b.getValue()));
+    rect(50,200,200,32);
+    
     //3.设置区
     //4.保存数据
   }

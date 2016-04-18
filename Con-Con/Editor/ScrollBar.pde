@@ -66,8 +66,8 @@ class ScrollBar extends Clickable{
   
   int getValue()
   {
-    float value = getPos() - position.x;
-    return (int)map(value,0,size.x,min,max) - 1;
+    float value = spos - position.x;
+    return (int)map(value,0,size.x - size.y,min,max + 1);
   }
   
 }
