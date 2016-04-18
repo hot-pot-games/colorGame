@@ -15,6 +15,17 @@ class ConChan{
   
   boolean isDead;
   
+  ConChan(float r, float g, float b){
+    this.col        = new Color(r,g,b);
+    this.strokeSize = 0.02;
+    this.edgeSize   = 0.8;
+    this.nxm        = null;
+    this.pxm        = null;
+    this.nym        = null;
+    this.pym        = null;
+  }
+  
+  
   ConChan(Color pcol){
     this.col        = pcol.copy();
     this.strokeSize = 0.02;

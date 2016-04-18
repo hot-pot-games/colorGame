@@ -17,17 +17,19 @@ PImage backP;
 PImage startP;
 PImage endP;
 
+
 void setup(){
   //ConChan c = new ConChan(new Color(0.2,0.6,0.8));
   //Cell cl = new Cell(0,0);
   //cl.poison(new Color(0.8,0.6,0));
   //cl.live(c);
-  lm = new LevelManager();
-  med = new Medium(new PVector(width/2,height/2),100,1);
+  lm      = new LevelManager();
+  med     = new Medium(new PVector(width/2,height/2),100,1);
+  backP   =loadImage("back.jpg");
+  startP  =loadImage("start.png");
+  endP    =loadImage("flag.png");
+  
   lm.loadLevel(0);
-  backP =loadImage("back.jpg");
-  startP =loadImage("start.png");
-  endP   =loadImage("flag.png");
 }
 
 
@@ -37,7 +39,17 @@ void draw(){
 }
 
 
-void mouseDragged(){
+void mousePressed(){
+  if(mouseButton==LEFT)
+  {
+    med.touch(mouseX,mouseY);
+  }
+}
+
+
+
+void mouseDragged()
+{
   med.drag();
 }
 

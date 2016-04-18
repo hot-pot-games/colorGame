@@ -74,6 +74,29 @@ class Medium {
     limitPos();
   }
 
+  //void printM(){
+  //  float ss = cellSize*scale*1;
+  //  println("mx:  "+(mouseX-pos.x)/ss+" my:  "+(mouseY-pos.y)/ss);
+  //}
+  
+  void touch(int mx, int my){
+    float ss = cellSize*scale*1;
+    float xc,yc;
+    xc = (mx-pos.x)/ss;
+    yc = (my-pos.y)/ss;
+    println(xc+" "+yc);
+    for(Cell cl:cells){
+      float tx,ty;
+      tx = cl.pos.x;
+      ty = cl.pos.y;
+      if(tx>xc-1&&tx<xc && ty>yc-1&&ty<yc)
+      {
+        cl.live(new ConChan(0.4,0.8,0.8));
+        break;
+      }
+    }
+  }
+  
 
   void display() {
     pushMatrix();
