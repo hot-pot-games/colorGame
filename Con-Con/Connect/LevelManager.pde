@@ -54,6 +54,7 @@ class LevelManager {
           b = parseFloat(str[3]);
           Cell tc;
           tc = new Cell(j, i);
+          cs[i][j] = tc;
           med.add(tc);
           tc.poison(new Color(r, g, b));
         } else if (choice==1) 
@@ -89,6 +90,7 @@ class LevelManager {
           StartCell sc = new StartCell(cs[xn][yn]);
           med.cells.remove(cs[xn][yn]);
           med.add(sc);
+          cs[xn][yn] = sc;
         }
       } 
       else if (choice==2) 
@@ -104,9 +106,43 @@ class LevelManager {
           EndCell sc = new EndCell(cs[xn][yn]);
           med.cells.remove(cs[xn][yn]);
           med.add(sc);
+          cs[xn][yn] = sc;
         }
       }
     }
+    
+    for (int m=0; m<xc; m++) {
+      for (int n=0; n<yc; n++) {
+        if(cs[m][n]==null){
+          continue;
+        }
+        if(m>0){
+          cs[m][n].makeFriends(UP_FRIEND,cs[m-1][n]);
+        }
+        
+        if(m<xc-1){
+          cs[m][n].makeFriends(DOWN_FRIEND,cs[m+1][n]);
+        }
+        
+        if(n>0){
+          cs[m][n].makeFriends(LEFT_FRIEND,cs[m][n-1]);
+        }
+        
+        if(n<yc-1){
+          cs[m][n].makeFriends(RIGHT_FRIEND,cs[m][n+1]);
+        }
+        
+        
+        //print((cs[m][n].nym==null)+" pos :"+cs[m][n].pos.x+" "+cs[m][n].pos.y);
+        //if(cs[m][n].nym!=null){
+        //  println(" nym pos :"+cs[m][n].nym.pos.x+" "+cs[m][n].nym.pos.y);
+        //}
+        //else{
+        //  println();
+        //}
+      }
+    }
+    
   }
 }
 

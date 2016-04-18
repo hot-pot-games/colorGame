@@ -1,54 +1,53 @@
 final float MAX_SCALE = 1.5f;
 final float MIN_SCALE = 0.2f;
 
-class Medium{
+class Medium {
   PVector pos;
-  
+
   float   cellSize;
   float   scale;
   ArrayList<Cell>cells;
-  
-  Medium(PVector ppos, float pceSize, float pscale){
+
+  Medium(PVector ppos, float pceSize, float pscale) {
     this.pos      = ppos.copy();
     this.cellSize = pceSize;
     this.scale    = pscale;
     this.cells    = new ArrayList<Cell>();
   }
-  
-  
-  void add(Cell cl){
+
+
+  void add(Cell cl) {
     cells.add(cl);
   }
-  
-  void limitPos(){
+
+  void limitPos() {
     float lit = 2*1024*scale*cellSize/100;
-    
-    if(pos.x>lit-50){
+
+    if (pos.x>lit-50) {
       pos.x = lit-50;
     }
-    
-    if(pos.x<width-lit){
-     pos.x = width-lit;
+
+    if (pos.x<width-lit) {
+      pos.x = width-lit;
     }
-    
-    if(pos.y>lit+200){
-     pos.y = lit+200;
+
+    if (pos.y>lit+200) {
+      pos.y = lit+200;
     }
-    
-    if(pos.y<height-lit-300){
-     pos.y = height-lit-300;
+
+    if (pos.y<height-lit-300) {
+      pos.y = height-lit-300;
     }
-    
   }
-  
-  void drag(){
+
+  void drag() {
     pos.x+= mouseX-pmouseX;
     pos.y+= mouseY-pmouseY;
     limitPos();
   }
-  
-  void scaleUp(){
-    if(scale>MAX_SCALE){
+
+  void scaleUp() {
+    if (scale>MAX_SCALE) {
       return;
     }
     float baseX = pos.x-mouseX;
@@ -60,9 +59,9 @@ class Medium{
     pos.y = mouseY+baseY;
     limitPos();
   }
-  
-  void scaleDown(){
-    if(scale<MIN_SCALE){
+
+  void scaleDown() {
+    if (scale<MIN_SCALE) {
       return;
     }
     float baseX = pos.x-mouseX;
@@ -74,48 +73,68 @@ class Medium{
     pos.y = mouseY+baseY;
     limitPos();
   }
- 
-  
-  void display(){
+
+
+  void display() {
     pushMatrix();
-    translate(pos.x,pos.y);
+    translate(pos.x, pos.y);
     scale(scale);
     scale(cellSize);
     imageMode(CENTER);
-    image(backP,0,0,100,100);
-    for(Cell cl: cells){
+    image(backP, 0, 0, 100, 100);
+    for (Cell cl : cells) {
       cl.display();
     }
     popMatrix();
   }
-  
 }
 
 
-class Cell{
+class Cell {
   Color col;
   PVector pos;
-  
+
   float strokeSize;
   float edgeSize;
-  
+
   int cellState;
-  
+
   boolean isPoison;
   boolean hasC;
   ConChan cc;
-  
-  
-  Cell(float xx, float yy){
-    this.pos  = new PVector(xx,yy);
+  Cell    nxm, pxm, nym, pym;
+
+  Cell(float xx, float yy) {
+    this.pos  = new PVector(xx, yy);
     this.strokeSize = 0.04f;
     this.edgeSize   = 1f;
-    this.col  = new Color(1,1,1);
-    this.isPoison = false;
-    this.hasC     = false;
+    this.col        = new Color(1, 1, 1);
+    this.isPoison   = false;
+    this.hasC       = false;
+    this.nxm        = null;
+    this.pxm        = null;
+    this.nym        = null;
+    this.pym        = null;
   }
-  
-  void copyFrom(Cell that){
+
+  void makeFriends(int index, Cell friend) {
+    switch(index) {
+    case LEFT_FRIEND: 
+      nxm = friend;
+      break;
+    case RIGHT_FRIEND: 
+      pxm = friend;
+      break;
+    case UP_FRIEND: 
+      nym = friend;
+      break;
+    case DOWN_FRIEND: 
+      pym = friend;
+      break;
+    }
+  }
+
+  void copyFrom(Cell that) {
     this.pos        = that.pos.copy();
     this.strokeSize = that.strokeSize;
     this.edgeSize   = that.edgeSize;
@@ -124,86 +143,104 @@ class Cell{
     this.hasC       = that.hasC;
     this.cc         = that.cc;
   }
-  
-  
-  void poison(Color pcl){
+
+
+  void poison(Color pcl) {
     this.col      = pcl.copy();
     this.isPoison = true;
   }
-  
-  void live(ConChan ch){
+
+  void live(ConChan ch) {
     this.cc   = ch;
-    this.hasC = true; 
+    this.hasC = true;
   }
-  
-  void wipe(){
+
+  void wipe() {
     this.cc   = null;
     this.hasC = false;
   }
-  
-  void display(){
+
+  void drawBack() {
     strokeWeight(0);
     stroke(0);
-    fill(col.col,120);
-    rect(pos.x,pos.y,edgeSize,edgeSize);
-    if(hasC)
+    fill(col.col, 120);
+    rect(pos.x, pos.y, edgeSize, edgeSize);
+  }
+
+  void drawCC() {
+    if (hasC)
     {
       pushMatrix();
-      translate(pos.x+0.5f,pos.y+0.5f);
+      translate(pos.x+0.5f, pos.y+0.5f);
       cc.display();
       popMatrix();
     }
+
+  }
   
+  void drawBoarder(){
+    pushMatrix();
+    translate(pos.x+0.5f, pos.y+0.5f);
+    strokeWeight(strokeSize);
+    stroke(0);
+    if (nxm==null) 
+    {
+      line(-0.5, -0.5, -0.5, 0.5);
+    }
+    if (pxm==null) 
+    {
+      line(0.5, -0.5, 0.5, 0.5);
+    }
+    if (nym==null) 
+    {
+      line(-0.5, -0.5, 0.5, -0.5);
+    }
+    if (pym==null) 
+    {
+      line(-0.5, 0.5, 0.5, 0.5);
+    }
+    popMatrix();
+  }
+
+  void display() {
+    drawBack();
+    drawCC();
+    drawBoarder();
   }
 }
 
 
 class StartCell extends Cell
 {
-  StartCell(Cell that){
-    super(0,0);
+  StartCell(Cell that) {
+    super(0, 0);
     copyFrom(that);
   }
-  
-  void display(){
+
+  void drawBack() {
     strokeWeight(0);
     stroke(0);
-    fill(col.col,120);
-    rect(pos.x,pos.y,edgeSize,edgeSize);
+    fill(col.col, 120);
+    rect(pos.x, pos.y, edgeSize, edgeSize);
     imageMode(CORNERS);
-    image(startP,pos.x,pos.y,pos.x+1,pos.y+1);
-    if(hasC)
-    {
-      pushMatrix();
-      translate(pos.x+0.5f,pos.y+0.5f);
-      cc.display();
-      popMatrix();
-    }
+    image(startP, pos.x, pos.y, pos.x+1, pos.y+1);
   }
 }
 
 
 class EndCell extends Cell
 {
-  EndCell(Cell that){
-    super(0,0);
+  EndCell(Cell that) {
+    super(0, 0);
     copyFrom(that);
   }
-  
-  void display(){
+
+  void drawBack() {
     strokeWeight(0);
     stroke(0);
-    fill(col.col,120);
-    rect(pos.x,pos.y,edgeSize,edgeSize);
+    fill(col.col, 120);
+    rect(pos.x, pos.y, edgeSize, edgeSize);
     imageMode(CORNERS);
-    image(endP,pos.x,pos.y,pos.x+1,pos.y+1);
-    
-    if(hasC)
-    {
-      pushMatrix();
-      translate(pos.x+0.5f,pos.y+0.5f);
-      cc.display();
-      popMatrix();
-    }
+    image(endP, pos.x, pos.y, pos.x+1, pos.y+1);
   }
 }
