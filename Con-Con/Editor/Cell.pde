@@ -36,5 +36,38 @@ class Cell{
     stroke(0);
     strokeWeight(2);
     rect(position.x,position.y,cellLength,cellLength);
+    
+    if(col != color(0))
+    {
+      fill(col);
+      noStroke();
+      rect(position.x + 2,position.y + 2,cellLength - 2,cellLength - 2);
+    }
+    
+    if(isPoisonous)
+    {
+      fill(204);
+      textSize(20);
+      text("X",position.x + 2,position.y,position.x + 20,position.y + 20);
+    }
+    
+    if(isDestination)
+    {
+      fill(color(255,0,0));
+      stroke(0);
+      rect(position.x + cellLength/3,position.y + cellLength/2 - 15,cellLength/3,15);
+      line(position.x + cellLength/3,position.y + cellLength/2 - 15,position.x + cellLength/3,position.y + cellLength/2 + 15);
+    }
+    
+    if(hasViableBacteria)
+    {
+      noFill();
+      stroke(0);
+      strokeWeight(2);
+      ellipse(position.x + cellLength/2,position.y + cellLength/2,45,45);
+      ellipse(position.x + cellLength/2,position.y + cellLength/2 - 10,8,8);
+      ellipse(position.x + cellLength/2 - 10,position.y + cellLength/2 + 10,8,8);
+      ellipse(position.x + cellLength/2 + 12,position.y + cellLength/2 + 8,8,8);
+    }
   }
 }
