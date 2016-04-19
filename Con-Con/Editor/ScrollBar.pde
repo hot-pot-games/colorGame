@@ -6,13 +6,13 @@ class ScrollBar extends Clickable{
   boolean locked;
   float ratio;
 
-  ScrollBar (PVector p,PVector s, int l,float min,float max) {
+  ScrollBar (PVector p,PVector s, int l,float min,float max,float deSPos) {
     super.size = s.copy();
     float widthtoheight = s.x - s.y;
     ratio = (float)s.x / (float)widthtoheight;
     super.position.x = p.x;
     super.position.y = p.y - s.y/2;
-    spos = p.x;
+    spos = p.x + deSPos * (s.x - s.y - 0.01);
     newspos = spos;
     sposMin = position.x;
     sposMax = position.x + s.x - s.y;
