@@ -1,12 +1,16 @@
 /*
 tool1：填色工具
  tool2：颜色橡皮工具
- tool3：终点工具
- tools：有活菌工具
+ tool3：添加/取消终点工具
+ tool4：添加/取消有活菌工具
+ tool5：添加格子
+ tool6：删除格子
  */
 class Tools extends Toggle
 {
   int id;
+  boolean inCellPanel = false;
+
   Tools(PVector p, PVector s, String t, int i)
   {
     super(p, s, t);
@@ -47,6 +51,40 @@ class Tools extends Toggle
         ellipse(mouseX, mouseY - 10, 8, 8);
         ellipse(mouseX - 10, mouseY + 10, 8, 8);
         ellipse(mouseX + 12, mouseY + 8, 8, 8);
+        break;
+        //tool5:add or cancle cell
+      case 5:
+        noFill();
+        stroke(0);
+        strokeWeight(2);
+        for (Cell c : cells)
+        {
+          if (c.isInside(mouseX, mouseY))
+          {
+            inCellPanel = true;
+            break;
+          }
+        }
+        if (!ep.isHover())
+        {
+          if (inCellPanel)//在格子内显示X
+          {
+            line(mouseX - 5, mouseY - 5, mouseX + 5, mouseY + 5);
+            line(mouseX - 5, mouseY + 5, mouseX + 5, mouseY - 5);
+          }
+           else//在格子外显示加和新的Cell边框
+          {
+            //"+"
+            line(mouseX, mouseY - 5, mouseX, mouseY + 5);
+            line(mouseX - 5, mouseY, mouseX + 5, mouseY);
+            //"边框"
+            stroke(204);
+            float newPosX = startDrawPos.x + cellLength * ((int)((mouseX - startDrawPos.x)/cellLength));
+            float newPosY = startDrawPos.y + cellLength * ((int)((mouseY - startDrawPos.y)/cellLength));
+            rect(newPosX, newPosY, cellLength, cellLength);
+          }
+        }
+        inCellPanel = false;
         break;
       }
     }
@@ -99,6 +137,30 @@ class Tools extends Toggle
             c.hasViableBacteria = !c.hasViableBacteria;
           }
         }
+        break;
+      case 5:
+        println("tool5:Add or Cancle Cell");
+        for (Cell c : cells)
+        {
+          if (c.isInside(mouseX, mouseY))//在格子内则删除格子
+          {
+            inCellPanel = true;
+            println(cells.size());
+            cells.remove(c);
+            println(cells.size());
+            break;
+          }
+        }
+        
+        if (!inCellPanel) //在格子外添加格子
+        {
+          float newPosX = startDrawPos.x + cellLength * ((int)((mouseX - startDrawPos.x)/cellLength));
+          float newPosY = startDrawPos.y + cellLength * ((int)((mouseY - startDrawPos.y)/cellLength));
+          Cell newCell = new Cell(new PVector(newPosX, newPosY));
+          cells.add(newCell);
+        }
+        
+        inCellPanel = false;
         break;
       }
     }

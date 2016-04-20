@@ -20,7 +20,7 @@ class okButton extends Button {
   void display()
   {
     super.display();
-    fill(255);
+    fill(50);
     textSize(15);
     text(text, position.x + size.x/3, position.y, position.x + size.x, position.y + size.y);
   }

@@ -39,6 +39,11 @@ void mouseClicked()
       cells.clear();
       ep.OKButton.clickEvent(ep.rowNumber.getValue(), ep.colNumber.getValue());
     }
+    
+    if (ep.SaveButton.isHover())
+    {
+      ep.SaveButton.clickEvent();
+    }
 
     for (Tools t : ep.tools)
     {
@@ -48,7 +53,8 @@ void mouseClicked()
       } else
         t.choosed = false;
     }
-  } else
+  } 
+  else
   {
     for (Tools t : ep.tools)
     {

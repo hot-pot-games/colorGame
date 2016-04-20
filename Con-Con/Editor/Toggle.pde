@@ -29,7 +29,7 @@ class Toggle extends Clickable {
       fill(204);
     rect(position.x, position.y, size.x, size.y);
     
-    fill(255);
+    fill(50);
     textSize(15);
     text(text, position.x + size.x/4, position.y, position.x + size.x, position.y + size.y);
   }

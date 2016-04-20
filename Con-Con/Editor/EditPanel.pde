@@ -5,23 +5,26 @@ class EditPanel {
   ArrayList<Tools> tools;
 
   //1格子区
-  ScrollBar rowNumber = new ScrollBar(new PVector(50, 20), new PVector(200, 16), 16, 1, 50, 0);
-  ScrollBar colNumber = new ScrollBar(new PVector(50, 40), new PVector(200, 16), 16, 1, 50, 0);
-  okButton OKButton = new okButton(new PVector(50, 60), new PVector(200, 16), "Creat");
+  ScrollBar rowNumber = new ScrollBar(new PVector(50, 20), new PVector(200, 20), 20, 1, 50, 0);
+  ScrollBar colNumber = new ScrollBar(new PVector(50, 50), new PVector(200, 20), 20, 1, 50, 0);
+  okButton OKButton = new okButton(new PVector(50, 80), new PVector(200, 20), "Fast Creat");
+  Tools addCancleCell = new Tools(new PVector(50,110),new PVector(200,20),"Add/Cancle Cell",5);
 
   //2.颜色区
-  ScrollBar r = new ScrollBar(new PVector(50, 140), new PVector(200, 16), 16, 0, 255, 0);
-  ScrollBar g = new ScrollBar(new PVector(50, 160), new PVector(200, 16), 16, 0, 255, 0);
-  ScrollBar b = new ScrollBar(new PVector(50, 180), new PVector(200, 16), 16, 0, 255, 0);
-  ScrollBar a = new ScrollBar(new PVector(50, 200), new PVector(200, 16), 16, 0, 255, 1);
-  Tools fillColor = new Tools(new PVector(50, 270), new PVector(200, 16), "Fill Color", 1);
-  Tools cancleColor = new Tools(new PVector(50, 290), new PVector(200, 16), "Cancle Color", 2);
+  ScrollBar r = new ScrollBar(new PVector(50, 160), new PVector(200, 20), 20, 0, 255, 0);
+  ScrollBar g = new ScrollBar(new PVector(50, 190), new PVector(200, 20), 20, 0, 255, 0);
+  ScrollBar b = new ScrollBar(new PVector(50, 220), new PVector(200, 20), 20, 0, 255, 0);
+  ScrollBar a = new ScrollBar(new PVector(50, 250), new PVector(200, 20), 20, 0, 255, 1);
+  Tools fillColor = new Tools(new PVector(50, 330), new PVector(200, 20), "Fill Color", 1);
+  Tools cancleColor = new Tools(new PVector(50, 360), new PVector(200, 20), "Cancle Color", 2);
 
   //3.设置区
-  Tools setDestination = new Tools(new PVector(50, 350), new PVector(200, 16), "Destination?", 3);
-  Tools hasLiveBacteria = new Tools(new PVector(50,370),new PVector(200,16),"LiveBacteria?",4);
+  Tools setDestination = new Tools(new PVector(50, 400), new PVector(200, 20), "Destination?", 3);
+  Tools hasLiveBacteria = new Tools(new PVector(50,430),new PVector(200,20),"LiveBacteria?",4);
 
   //4.保存数据
+  ScrollBar level = new ScrollBar(new PVector(50, 480), new PVector(200, 20), 20, 1, 50, 0);
+  saveButton SaveButton = new saveButton(new PVector(50, 500), new PVector(200, 20), "Save Datas");
 
   EditPanel()
   {
@@ -29,6 +32,7 @@ class EditPanel {
     size = new PVector(300, 800);
     bgCol = color(50);
     tools = new ArrayList<Tools>();
+    tools.add(addCancleCell);
     tools.add(fillColor);
     tools.add(cancleColor);
     tools.add(setDestination);
@@ -55,10 +59,12 @@ class EditPanel {
 
     OKButton.update();
     OKButton.display(); 
+    addCancleCell.update();
+    addCancleCell.display();
 
     stroke(204);
     strokeWeight(1);
-    line(0, 110, size.x, 110);
+    line(0, 140, size.x, 140);
 
     //2.颜色区
     fill(255);
@@ -80,7 +86,7 @@ class EditPanel {
     a.display();
 
     fill(color(r.getValue(), g.getValue(), b.getValue(), a.getValue()));
-    rect(50, 220, 200, 32);
+    rect(50, 280, 200, 40);
 
     fillColor.update();
     fillColor.display();
@@ -89,15 +95,26 @@ class EditPanel {
 
     stroke(204);
     strokeWeight(1);
-    line(0, 325, size.x, 325);
+    line(0, 390, size.x, 390);
    
     //3.设置区
     setDestination.update();
     setDestination.display();
     hasLiveBacteria.update();
     hasLiveBacteria.display();
+    
+    stroke(204);
+    strokeWeight(1);
+    line(0, 460, size.x, 460);
 
     //4.保存数据
+    fill(255);
+    textSize(15);
+    text("level", level.position.x - 40, level.position.y, level.position.x - 10, level.position.y + 20);
+    level.update();
+    level.display();
+    SaveButton.update();
+    SaveButton.display();
   }
 
   boolean isHover() 
