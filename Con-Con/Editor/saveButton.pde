@@ -13,6 +13,7 @@ class saveButton extends Button {
     table.addColumn("ColorR");
     table.addColumn("ColorG");
     table.addColumn("ColorB");
+    table.addColumn("ColorA");
     table.addColumn("isDestination");
     table.addColumn("SpecialEvent");
     table.addColumn("isPoisonous");
@@ -26,6 +27,7 @@ class saveButton extends Button {
       newRow.setFloat("ColorR",red(c.col));
       newRow.setFloat("ColorG",green(c.col));
       newRow.setFloat("ColorB",blue(c.col));
+      newRow.setFloat("ColorA",alpha(c.col));
       newRow.setInt("isDestination",boolean2Int(c.isDestination));
       newRow.setInt("SpecialEvent",c.specialEvent);
       newRow.setInt("isPoisonous",boolean2Int(c.isPoisonous));

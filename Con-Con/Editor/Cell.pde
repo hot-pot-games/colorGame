@@ -14,7 +14,7 @@ class Cell{
   {
     this.position = p;
 
-    this.col = color(0);
+    this.col = color(0,0,0,0);
     this.isDestination = false;
     this.specialEvent = 0;
     this.isPoisonous = false;
@@ -37,7 +37,7 @@ class Cell{
     strokeWeight(2);
     rect(position.x,position.y,cellLength,cellLength);
     
-    if(col != color(0))
+    if(col != color(0,0,0,0))
     {
       fill(col);
       noStroke();

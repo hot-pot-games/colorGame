@@ -113,7 +113,7 @@ class Tools extends Toggle
         {
           if (c.isInside(mouseX, mouseY))
           {
-            c.col = color(0);
+            c.col = color(0,0,0,0);
             c.isPoisonous = false;
           }
         }
