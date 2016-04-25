@@ -30,7 +30,7 @@ class Scene{
   }
   
   void draw(){
-    fill(100);
+    fill(20);
     rect(anchor.x,anchor.y,size.x,size.y);
   }
   
