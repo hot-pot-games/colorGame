@@ -179,10 +179,31 @@ class uiButton implements Clickable
   void clickEvent()
   {
     area.click();
+    doEvent(value);
   }
   
   void releaseEvent()
   {
     area.release();
+  }
+}
+
+class UIfactory{
+  PFont pf;
+  UIset tus;
+  
+  UIfactory(UIset pus){
+    pf   = createFont("Arial",40);
+    tus  = pus;
+  }
+  
+  void addButton(float xx, float yy){
+    uiButton nb = new uiButton(xx,yy);
+    tus.add(nb);
+  }
+  
+  void addButton(float xx, float yy,function_type val){
+    uiButton nb = new uiButton(xx,yy).link(val);
+    tus.add(nb);
   }
 }

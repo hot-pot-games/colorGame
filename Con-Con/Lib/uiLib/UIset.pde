@@ -32,6 +32,32 @@ public static class uiProxy{
     }
   }
   
+  void setSele(Clickable pck){
+    ck = pck;
+    superType = proxy_ui.CLICK_UI;
+  }
+  
+  void selePress(){
+    switch(superType){
+      case NULL_UI: break;
+      case CLICK_UI: ck.clickEvent(); break;
+    }
+  }
+  
+  void seleRelease(){
+    switch(superType){
+      case NULL_UI: break;
+      case CLICK_UI: ck.releaseEvent(); break;
+    }
+  }
+  
+  void seleDrag(){
+    switch(superType){
+      case NULL_UI: break;
+      case CLICK_UI: break;
+    }
+  }
+  
   boolean hasSele(){
     if(superType!=proxy_ui.NULL_UI){
       return true;
@@ -86,6 +112,28 @@ public static class UIset{
   
   void add(Clickable ck){
     cks.add(ck);
+  }
+  
+  
+  void checkHover(float mx, float my){
+    for(Clickable ck: cks){
+      if(ck.isIn(mx,my)){
+        seleUp.setSele(ck);
+      }
+    }
+  }
+  
+  void checkPress(float mx, float my){
+    checkHover(mx,my);
+    if(seleUp.hasSele()){
+      seleUp.selePress();
+    }
+  }
+  
+  void checkRelease(){
+    if(seleUp.hasSele()){
+      seleUp.seleRelease();
+    }
   }
   
   
