@@ -124,6 +124,7 @@ public static class UIset{
   }
   
   void checkPress(float mx, float my){
+    seleUp.setNull();
     checkHover(mx,my);
     if(seleUp.hasSele()){
       seleUp.selePress();

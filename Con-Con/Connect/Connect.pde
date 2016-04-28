@@ -9,10 +9,12 @@ void settings(){
   size((int)ww,(int)hh);
 }
 
-
 //全局变量
-LevelManager lm;
-Medium med;
+
+Scene ns;
+UIset     us;
+UIfactory uf;
+
 PImage backP;
 PImage startP;
 PImage endP;
@@ -20,14 +22,16 @@ PImage endP;
 float transX,transY;
 
 
+
 void setup(){
   //ConChan c = new ConChan(new Color(0.2,0.6,0.8));
   //Cell cl = new Cell(0,0);
   //cl.poison(new Color(0.8,0.6,0));
   //cl.live(c);
-  lm      = new LevelManager();
+  //lm      = new LevelManager();
   //med     = new Medium(new PVector(width/2,height/2),100,1);
-  med     = new Medium(new PVector(105.25,182),100,0.7);
+  
+  
   backP   =loadImage("back.jpg");
   startP  =loadImage("start.png");
   endP    =loadImage("flag.png");
@@ -35,22 +39,28 @@ void setup(){
   transX = 0;
   transY = 0;
   
-  lm.loadLevel(0);
+  ns = new SceneStartMenu();
+  ns.load();
+  
+  us = UIset.getInstance();
+  uf = new UIfactory(us);
+  uf.addButton(100,80,function_type.SCENE_01);
+  uf.addButton(100,180);
 }
 
 
 void draw(){
-  background(220);
   translate(-transX,-transY);
-  med.display();
+  ns.display();
+  
+  us.checkHover(mouseX,mouseY);
+  us.display();
 }
 
 
 void mousePressed(){
-  if(mouseButton==LEFT)
-  {
-    med.touch(transX+mouseX,transY+mouseY);
-  }
+  ns.checkPress(transX+mouseX,transY+mouseY);
+  us.checkPress(transX+mouseX,transY+mouseY);
 }
 
 
@@ -58,6 +68,10 @@ void mousePressed(){
 void mouseDragged()
 {
   //med.drag();
+}
+
+void mouseReleased(){
+  us.checkRelease();
 }
 
 //void mouseWheel(MouseEvent event) {
@@ -70,6 +84,6 @@ void mouseDragged()
 //  }
 //}
 
-void keyPressed(){
-  println(med.pos+" "+med.scale);
-}
+//void keyPressed(){
+//  println(med.pos+" "+med.scale);
+//}
