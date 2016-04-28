@@ -1,3 +1,6 @@
+import de.looksgood.ani.*;
+
+
 //显示高度；宽高比为9:16
 final int HEIGHT = 720;
 
@@ -11,9 +14,13 @@ void settings(){
 
 //全局变量
 
-Scene ns;
-UIset     us;
-UIfactory uf;
+ArrayList<Scene>ss;
+Scene   seleScene;
+boolean isLockScene;
+
+UIset      us;
+UIfactory  uf;
+SceneClock sc;
 
 PImage backP;
 PImage startP;
@@ -30,7 +37,8 @@ void setup(){
   //cl.live(c);
   //lm      = new LevelManager();
   //med     = new Medium(new PVector(width/2,height/2),100,1);
-  
+  Ani.init(this);
+  sc = new SceneClock();
   
   backP   =loadImage("back.jpg");
   startP  =loadImage("start.png");
@@ -39,27 +47,48 @@ void setup(){
   transX = 0;
   transY = 0;
   
-  ns = new SceneStartMenu();
-  ns.load();
+  ss = new ArrayList<Scene>();
+  ss.add(new SceneStartMenu(0,0).load());
+  ss.add(new SceneGameView(1,0).load());
   
+  isLockScene = true;
+  seleScene   = ss.get(0);
+  
+  //构建按钮
   us = UIset.getInstance();
   uf = new UIfactory(us);
-  uf.addButton(100,80,function_type.SCENE_01);
-  uf.addButton(100,180);
+  uf.addButton(width/2-40,height*0.6,function_type.SCENE_01);
+  uf.addButton(width+width*0.1,height*0.05,function_type.SCENE_02);
 }
 
 
 void draw(){
-  translate(-transX,-transY);
-  ns.display();
+  sc.update();
   
-  us.checkHover(mouseX,mouseY);
+  translate(-transX,-transY);
+  
+  if(!isLockScene)
+  {
+    for(Scene s: ss){
+      s.display();
+    }
+  }
+  else{
+    seleScene.display();
+  }
+  
+  us.checkHover(transX+mouseX,transY+mouseY);
   us.display();
+
 }
 
 
 void mousePressed(){
-  ns.checkPress(transX+mouseX,transY+mouseY);
+  if(isLockScene)
+  {
+    //println(seleScene.anchor.x);
+    seleScene.checkPress(transX+mouseX,transY+mouseY);
+  }
   us.checkPress(transX+mouseX,transY+mouseY);
 }
 
@@ -73,6 +102,8 @@ void mouseDragged()
 void mouseReleased(){
   us.checkRelease();
 }
+
+
 
 //void mouseWheel(MouseEvent event) {
 //  float e = event.getCount();
