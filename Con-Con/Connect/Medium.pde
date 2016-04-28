@@ -79,12 +79,12 @@ class Medium {
   //  println("mx:  "+(mouseX-pos.x)/ss+" my:  "+(mouseY-pos.y)/ss);
   //}
   
-  void touch(int mx, int my){
+  void touch(float mx, float my){
     float ss = cellSize*scale*1;
     float xc,yc;
     xc = (mx-pos.x)/ss;
     yc = (my-pos.y)/ss;
-    println(xc+" "+yc);
+    //println(xc+" "+yc);
     for(Cell cl:cells){
       float tx,ty;
       tx = cl.pos.x;
@@ -103,8 +103,8 @@ class Medium {
     translate(pos.x, pos.y);
     scale(scale);
     scale(cellSize);
-    imageMode(CENTER);
-    image(backP, 0, 0, 100, 100);
+    //imageMode(CENTER);
+    //image(backP, 0, 0, 100, 100);
     for (Cell cl : cells) {
       cl.display();
     }
