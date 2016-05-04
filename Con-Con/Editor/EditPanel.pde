@@ -21,10 +21,11 @@ class EditPanel {
   //3.设置区
   Tools setDestination = new Tools(new PVector(50, 400), new PVector(200, 20), "Destination?", 3);
   Tools hasLiveBacteria = new Tools(new PVector(50,430),new PVector(200,20),"LiveBacteria?",4);
+  Tools colorBacteria = new Tools(new PVector(50,460),new PVector(200,20),"Color Bacteria?",6);
 
   //4.保存数据
-  ScrollBar level = new ScrollBar(new PVector(50, 480), new PVector(200, 20), 20, 1, 50, 0);
-  saveButton SaveButton = new saveButton(new PVector(50, 500), new PVector(200, 20), "Save Datas");
+  ScrollBar level = new ScrollBar(new PVector(50, 510), new PVector(200, 20), 20, 1, 50, 0);
+  saveButton SaveButton = new saveButton(new PVector(50, 530), new PVector(200, 20), "Save Datas");
 
   EditPanel()
   {
@@ -37,6 +38,7 @@ class EditPanel {
     tools.add(cancleColor);
     tools.add(setDestination);
     tools.add(hasLiveBacteria);
+    tools.add(colorBacteria);
   }
 
   void display()
@@ -102,10 +104,12 @@ class EditPanel {
     setDestination.display();
     hasLiveBacteria.update();
     hasLiveBacteria.display();
+    colorBacteria.update();
+    colorBacteria.display();
     
     stroke(204);
     strokeWeight(1);
-    line(0, 460, size.x, 460);
+    line(0, 490, size.x, 490);
 
     //4.保存数据
     fill(255);
