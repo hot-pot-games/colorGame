@@ -21,18 +21,19 @@ class saveButton extends Button {
     {
       for (Cell c : cells)
       {
-        if (c.position.x < minX)
+        if (c.position.x <= minX)
           minX = c.position.x;
-        if (c.position.x > maxX)
+        if (c.position.x >= maxX)
           maxX = c.position.x;
-        if (c.position.y < minY)
+        if (c.position.y <= minY)
           minY = c.position.y;
-        if (c.position.x > maxY)
+        if (c.position.y >= maxY)
           maxY = c.position.y;
       }
       //计算数组的长宽
-      xLength = int((maxX - minX)/cellLength);
-      yLength = int((maxY - minY)/cellLength);
+      yLength = int((maxX - minX)/cellLength) + 1;
+      xLength = int((maxY - minY)/cellLength) + 1;
+      println("xLength:" + xLength + " yLength:" + yLength);
       //初始化数组
       cs = new String[xLength][];
       for (int m = 0; m < xLength; m++) 
@@ -48,13 +49,13 @@ class saveButton extends Button {
       {
         if (c.col != color(0, 0, 0, 0))
         {
-          int x = int((c.position.x - minX)/cellLength) - 1;
-          int y = int((c.position.y - minY)/cellLength) - 1;
+          int y = int((c.position.x - minX)/cellLength);
+          int x = int((c.position.y - minY)/cellLength);
           cs[x][y] = "2:" + red(c.col)/255.0f + ":" + green(c.col)/255.0f + ":" + blue(c.col)/255.0f;
         } else
         {
-          int x = int((c.position.x - minX)/cellLength) - 1;
-          int y = int((c.position.y - minY)/cellLength) - 1;
+          int y = int((c.position.x - minX)/cellLength);
+          int x = int((c.position.y - minY)/cellLength);
           cs[x][y] = "1";
         }
       }
@@ -63,7 +64,7 @@ class saveButton extends Button {
       {
         for (int n = 0; n < yLength; n++) 
         {
-          if(cs[m][n] == null)
+          if (cs[m][n] == null)
             cs[m][n] = "0";
         }
       }
@@ -72,34 +73,39 @@ class saveButton extends Button {
 
   void clickEvent()
   {
-    Table table = new Table();
-    table.addColumn("PositionX");
-    table.addColumn("PositionY");
-    table.addColumn("ColorR");
-    table.addColumn("ColorG");
-    table.addColumn("ColorB");
-    table.addColumn("ColorA");
-    table.addColumn("isDestination");
-    table.addColumn("SpecialEvent");
-    table.addColumn("isPoisonous");
-    table.addColumn("hasViableBacteria");
+    getData();
+    Table cellTable = new Table();
+    Table sysTable = new Table();
 
-    for (Cell c : cells)
+    for (int m = 0; m < xLength; m++) 
     {
-      TableRow newRow = table.addRow();
-      newRow.setFloat("PositionX", c.position.x);
-      newRow.setFloat("PositionY", c.position.y);
-      newRow.setFloat("ColorR", red(c.col));
-      newRow.setFloat("ColorG", green(c.col));
-      newRow.setFloat("ColorB", blue(c.col));
-      newRow.setFloat("ColorA", alpha(c.col));
-      newRow.setInt("isDestination", boolean2Int(c.isDestination));
-      newRow.setInt("SpecialEvent", c.specialEvent);
-      newRow.setInt("isPoisonous", boolean2Int(c.isPoisonous));
-      newRow.setInt("hasViableBacteria", boolean2Int(c.hasViableBacteria));
+      TableRow newRow = cellTable.addRow();
+      for (int n = 0; n < yLength; n++)
+      {
+        String colu = n + "";
+        newRow.setString(colu,cs[m][n]);
+      }
+    }   
+    
+    for(Cell c:cells)
+    {
+      int y = int((c.position.x - minX)/cellLength);
+      int x = int((c.position.y - minY)/cellLength);
+      if(c.hasViableBacteria)
+      {
+        TableRow newRow = sysTable.addRow();
+        newRow.setString(0,"1:" + x + ":" + y + ":" + 
+        red(c.bacteriaCol)/255.0f + ":" + green(c.bacteriaCol)/255.0f + ":" + blue(c.bacteriaCol)/255.0f);
+      }
+      if(c.isDestination)
+      {
+        TableRow newRow = sysTable.addRow();
+        newRow.setString(0,"2:" + x + ":" + y);
+      }
     }
-
-    saveTable(table, "data/level" + ep.level.getValue() + ".csv");
+    
+    saveTable(cellTable, "data/level" + ep.level.getValue() + "_cell.csv");
+    saveTable(sysTable, "data/level" + ep.level.getValue() + "_sys.csv");
   }
 
   void display()
@@ -113,7 +119,7 @@ class saveButton extends Button {
   int boolean2Int(boolean b)
   {
     if (b)
-      return 1;
+    return 1;
     else
       return 0;
   }
