@@ -70,4 +70,14 @@ class ScrollBar extends Clickable{
     return (int)map(value,0,size.x - size.y,min,max + 1);
   }
   
+  void setValue(int value)
+  {
+    if(value < 0)
+      value = 0;
+    else if(value > 255)
+      value = 255;
+
+    spos = spos + (newspos-spos)/loose;
+  }
+  
 }
