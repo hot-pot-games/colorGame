@@ -9,6 +9,8 @@ class Cell{
   int specialEvent;
   boolean isPoisonous;
   boolean hasViableBacteria;
+  boolean bacteriaHasColor;
+  color bacteriaCol;
   
   Cell(PVector p)
   {
@@ -19,6 +21,8 @@ class Cell{
     this.specialEvent = 0;
     this.isPoisonous = false;
     this.hasViableBacteria = false;
+    this.bacteriaHasColor = false;
+    this.bacteriaCol = color(0,0,0,0);
   }
   
   boolean isInside(float x, float y){
@@ -61,7 +65,10 @@ class Cell{
     
     if(hasViableBacteria)
     {
-      noFill();
+      if(bacteriaHasColor)
+        fill(bacteriaCol);
+      else
+        noFill();
       stroke(0);
       strokeWeight(2);
       ellipse(position.x + cellLength/2,position.y + cellLength/2,45,45);

@@ -3,8 +3,8 @@ tool1：填色工具
  tool2：颜色橡皮工具
  tool3：添加/取消终点工具
  tool4：添加/取消有活菌工具
- tool5：添加格子
- tool6：删除格子
+ tool5：添加/删除格子
+ tool6：添加/取消有颜色的活菌
  */
 class Tools extends Toggle
 {
@@ -86,6 +86,16 @@ class Tools extends Toggle
         }
         inCellPanel = false;
         break;
+        //tool6:fill color to bacteria
+      case 6:
+        fill(color(ep.r.getValue(), ep.g.getValue(), ep.b.getValue(), ep.a.getValue()));
+        stroke(0);
+        strokeWeight(2);
+        ellipse(mouseX, mouseY, 45, 45);
+        ellipse(mouseX, mouseY - 10, 8, 8);
+        ellipse(mouseX - 10, mouseY + 10, 8, 8);
+        ellipse(mouseX + 12, mouseY + 8, 8, 8);
+        break;
       }
     }
   }
@@ -113,7 +123,7 @@ class Tools extends Toggle
         {
           if (c.isInside(mouseX, mouseY))
           {
-            c.col = color(0,0,0,0);
+            c.col = color(0, 0, 0, 0);
             c.isPoisonous = false;
           }
         }
@@ -134,6 +144,7 @@ class Tools extends Toggle
         {
           if (c.isInside(mouseX, mouseY))
           {
+            c.bacteriaHasColor = false;
             c.hasViableBacteria = !c.hasViableBacteria;
           }
         }
@@ -151,7 +162,7 @@ class Tools extends Toggle
             break;
           }
         }
-        
+
         if (!inCellPanel) //在格子外添加格子
         {
           float newPosX = startDrawPos.x + cellLength * ((int)((mouseX - startDrawPos.x)/cellLength));
@@ -159,8 +170,20 @@ class Tools extends Toggle
           Cell newCell = new Cell(new PVector(newPosX, newPosY));
           cells.add(newCell);
         }
-        
+
         inCellPanel = false;
+        break;
+      case 6:
+        println("tool6:Fill Color To LiveBacteria");
+        for (Cell c : cells)
+        {
+          if (c.isInside(mouseX, mouseY))
+          {
+            c.bacteriaHasColor = true;
+            c.bacteriaCol = color(ep.r.getValue(), ep.g.getValue(), ep.b.getValue(), ep.a.getValue());
+            c.hasViableBacteria = !c.hasViableBacteria;
+          }
+        }
         break;
       }
     }
