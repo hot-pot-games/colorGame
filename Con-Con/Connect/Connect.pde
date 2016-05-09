@@ -57,8 +57,14 @@ void setup(){
   //构建按钮
   us = UIset.getInstance();
   uf = new UIfactory(us);
-  uf.addButton(width/2-40,height*0.6,function_type.SCENE_01);
-  uf.addButton(width+width*0.1,height*0.05,function_type.SCENE_02);
+  uf.addButton(width/2-40,height*0.6,button_type.COLOR_RECT_BUTT,function_type.SCENE_01);
+  uf.addButton(width+width*0.1,height*0.05,button_type.COLOR_RECT_BUTT,function_type.SCENE_02);
+  
+  uf.addToolButton(width+width*0.2,height*0.90,0);
+  uf.addToolButton(width+width*0.45,height*0.90,1);
+  
+  uf.addColorButton(width+width*0.2,height*0.18,0);
+  uf.addColorButton(width+width*0.45,height*0.18,1);
 }
 
 

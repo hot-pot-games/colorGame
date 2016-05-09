@@ -4,6 +4,7 @@ interface Clickable {
   void    draw();                   //绘制
   void    clickEvent();             //触发点击事件
   void    releaseEvent();           //触发释放事件
+  void    reset();                  //不触发事件的解除焦点
 }
 
 //枚举类型 proxy_enum
@@ -137,9 +138,16 @@ public static class UIset {
   }
 
   void checkRelease() {
+    for (Clickable ck : cks) {
+      if (ck!=seleUp) {
+        ck.reset();
+      }
+    }
+    
     if (seleUp.hasSele()) {
       seleUp.seleRelease();
     }
+    
   }
 
 

@@ -320,6 +320,10 @@ class uiButton implements Clickable
   {
     area.release();
   }
+  
+  void reset(){
+    area.release();
+  }
 }
 
 class UIfactory {
