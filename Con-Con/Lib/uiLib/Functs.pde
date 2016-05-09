@@ -7,7 +7,7 @@ void doEvent(function_type value){
   switch(value){
     case NONE:     println("none function");break;
     case SCENE_01: println("scene01 function"); break;
-    case SCENE_02: break;
+    case SCENE_02: println("scene02 function"); break;
     case SCENE_03: break;
     default: println("ERROR：使用了未初始化的枚举值（function_enum）"); break;
   }
