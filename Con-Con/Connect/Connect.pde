@@ -17,6 +17,7 @@ void settings(){
 ArrayList<Scene>ss;
 Scene   seleScene;
 boolean isLockScene;
+SceneGameView sg;
 
 UIset      us;
 UIfactory  uf;
@@ -47,9 +48,11 @@ void setup(){
   transX = 0;
   transY = 0;
   
+  sg = new SceneGameView(1,0).load();
+  
   ss = new ArrayList<Scene>();
   ss.add(new SceneStartMenu(0,0).load());
-  ss.add(new SceneGameView(1,0).load());
+  ss.add(sg);
   
   isLockScene = true;
   seleScene   = ss.get(0);
@@ -65,6 +68,7 @@ void setup(){
   
   uf.addColorButton(width+width*0.2,height*0.18,0);
   uf.addColorButton(width+width*0.45,height*0.18,1);
+  uf.addColorButton(width+width*0.7,height*0.18,2);
 }
 
 

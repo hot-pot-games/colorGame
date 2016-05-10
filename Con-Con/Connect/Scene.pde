@@ -77,7 +77,7 @@ class SceneGameView extends Scene
   }
   
   
-  Scene load(){
+  SceneGameView load(){
     med     = new Medium(new PVector(105.25,182),100,0.7);
     lm      = new LevelManager(med);
     

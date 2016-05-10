@@ -1,9 +1,17 @@
 final float MAX_SCALE = 1.5f;
 final float MIN_SCALE = 0.2f;
+public enum color_tool{
+  DROP_TOOL,CUT_TOOL;
+}
+
+
 
 class Medium {
   PVector pos;
-
+  Color[] colList;
+  int     seleColorIndex;
+  color_tool     seleTool;
+  
   float   cellSize;
   float   scale;
   ArrayList<Cell>cells;
@@ -13,6 +21,12 @@ class Medium {
     this.cellSize = pceSize;
     this.scale    = pscale;
     this.cells    = new ArrayList<Cell>();
+    this.colList  = new Color[3];
+    this.colList[0]  = new Color(0.2,0.4,0.8);
+    this.colList[1]  = new Color(0.4,0.8,0.2);
+    this.colList[2]  = new Color(0.8,0.2,0.4);
+    this.seleColorIndex = 0;
+    this.seleTool       = color_tool.DROP_TOOL;
   }
 
 
@@ -73,11 +87,37 @@ class Medium {
     pos.y = mouseY+baseY;
     limitPos();
   }
+  
+  void reculColor()
+  {
+    class ListPool{
+      int             index;
+      ArrayList<Cell> clList;
+      ArrayList<Cell> clPool;
+      
+      ListPool(Cell cl,int n){
+        index  = n;
+        
+        clList = new ArrayList<Cell>();
+        clList.add(cl);
+        
+        clPool = cl.getLinkedFriends();
+      }
+      
+      
+      
+    }
+  
+  }
 
   //void printM(){
   //  float ss = cellSize*scale*1;
   //  println("mx:  "+(mouseX-pos.x)/ss+" my:  "+(mouseY-pos.y)/ss);
   //}
+  
+  void addCC(Cell cl){
+    cl.live(new ConChan(colList[seleColorIndex].copy()));
+  }
   
   void touch(float mx, float my){
     float ss = cellSize*scale*1;
@@ -91,7 +131,22 @@ class Medium {
       ty = cl.pos.y;
       if(tx>xc-1&&tx<xc && ty>yc-1&&ty<yc)
       {
-        cl.live(new ConChan(0.4,0.8,0.8));
+        if(seleTool == color_tool.DROP_TOOL)
+        {
+          if(cl.cc==null)
+          {
+            addCC(cl);
+            reculColor();
+          }
+        }
+        
+        if(seleTool == color_tool.CUT_TOOL)
+        {
+          if(cl.cc!=null){
+            cl.wipe();
+          }
+        }
+        
         break;
       }
     }
@@ -139,6 +194,28 @@ class Cell {
     this.nym        = null;
     this.pym        = null;
   }
+  
+  ArrayList<Cell> getLinkedFriends(){
+    ArrayList<Cell> cll;
+    cll = new ArrayList<Cell>();
+   if(nxm!=null && nxm.hasC){
+     cll.add(nxm);
+   }
+   
+   if(pxm!=null && pxm.hasC){
+     cll.add(pxm);
+   }
+   
+   if(nym!=null && nym.hasC){
+     cll.add(nym);
+   }
+   
+   if(pym!=null && pym.hasC){
+     cll.add(pym);
+   }
+    
+    return cll;
+  }
 
   void makeFriends(int index, Cell friend) {
     switch(index) {
@@ -182,6 +259,8 @@ class Cell {
     this.cc   = null;
     this.hasC = false;
   }
+  
+  
 
   void drawBack() {
     strokeWeight(0);

@@ -25,10 +25,22 @@ void doEvent(function_type value, int extraValue){
 
 
 void changeColorTo(int cnum){
+  sg.med.seleColorIndex = cnum;
+  
   println(cnum);
 }
 
 void changeToolTo(int tnum){
+  switch(tnum){
+    case 0: 
+      sg.med.seleTool = color_tool.DROP_TOOL;
+    break;
+    
+    case 1: 
+      sg.med.seleTool = color_tool.CUT_TOOL;
+    break;
+  
+  }
   println(tnum);
 }
 
