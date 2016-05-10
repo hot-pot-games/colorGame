@@ -128,3 +128,157 @@ class SceneGameView extends Scene
   }
   
 }
+
+
+class SceneAbout extends Scene
+{
+  SceneAbout(int x, int y){
+    anchor = new PVector(x*width,y*height);
+    size   = new PVector(width,height);
+  }
+  
+  
+  Scene load(){
+    return this;
+  }
+  
+  void reset(){
+  
+  }
+  
+  void update(){
+  
+  }
+  
+  void display(){
+    
+    pushMatrix();
+    translate(anchor.x,anchor.y);
+    fill(255);
+    noStroke();
+    rect(0,0,size.x,size.y);
+    popMatrix();
+  }
+  
+  void update_unlock(){
+  
+  }
+  
+  void display_unlock(){
+  
+  }
+  
+  void checkHover(float mx, float my){
+  
+  }
+  
+  void checkPress(float mx, float my){
+  }
+  
+  void checkRelease(float mx, float my){
+  
+  }
+
+}
+
+class SceneStore extends Scene
+{
+  SceneStore(int x, int y){
+    anchor = new PVector(x*width,y*height);
+    size   = new PVector(width,height);
+  }
+  
+  
+  Scene load(){
+    return this;
+  }
+  
+  void reset(){
+  
+  }
+  
+  void update(){
+  
+  }
+  
+  void display(){
+    
+    pushMatrix();
+    translate(anchor.x,anchor.y);
+    fill(255);
+    noStroke();
+    rect(0,0,size.x,size.y);
+    popMatrix();
+  }
+  
+  void update_unlock(){
+  
+  }
+  
+  void display_unlock(){
+  
+  }
+  
+  void checkHover(float mx, float my){
+  
+  }
+  
+  void checkPress(float mx, float my){
+  }
+  
+  void checkRelease(float mx, float my){
+  
+  }
+
+}
+
+class SceneOption extends Scene
+{
+  SceneOption(int x, int y){
+    anchor = new PVector(x*width,y*height);
+    size   = new PVector(width,height);
+  }
+  
+  
+  Scene load(){
+    return this;
+  }
+  
+  void reset(){
+  
+  }
+  
+  void update(){
+  
+  }
+  
+  void display(){
+    
+    pushMatrix();
+    translate(anchor.x,anchor.y);
+    fill(255);
+    noStroke();
+    rect(0,0,size.x,size.y);
+    popMatrix();
+  }
+  
+  void update_unlock(){
+  
+  }
+  
+  void display_unlock(){
+  
+  }
+  
+  void checkHover(float mx, float my){
+  
+  }
+  
+  void checkPress(float mx, float my){
+  }
+  
+  void checkRelease(float mx, float my){
+  
+  }
+
+}
