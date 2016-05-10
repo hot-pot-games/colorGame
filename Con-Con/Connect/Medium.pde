@@ -91,25 +91,129 @@ class Medium {
   void reculColor()
   {
     class ListPool{
-      int             index;
+      Cell            baseCell;
       ArrayList<Cell> clList;
       ArrayList<Cell> clPool;
+      boolean         hasFail;
       
-      ListPool(Cell cl,int n){
-        index  = n;
+      ListPool(Cell cl){
+        baseCell = cl;
         
         clList = new ArrayList<Cell>();
         clList.add(cl);
         
         clPool = cl.getLinkedFriends();
+        
+        hasFail = false;
       }
       
+      boolean empty(){
+        if(clPool.size()==0){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
       
-      
+      void addPoolToList(ArrayList<ListPool> lpp){
+        ArrayList<Cell> np;
+        np = new ArrayList<Cell>();
+        
+        for(Cell cl: clPool){
+          //对于池中每一个Cell，确定是否在表中存在
+          boolean has;
+          
+          has = false;
+          for(Cell cll: clList){
+            if(cll == cl){
+              //如有，则跳过这一变量
+              has = true;
+              break;
+            }
+          }
+          
+          if(has){
+            continue;
+          }
+          
+          //如果表中没有这个Cell，增加他进表，增加他的池进入本体的新池
+          clList.add(cl);
+          for(int i=0; i<lpp.size(); i++){
+            if(!lpp.get(i).hasFail && lpp.get(i).baseCell == cl){
+              lpp.get(i).hasFail = true;
+              break;
+            }
+          }
+          
+          for(Cell ncl: cl.getLinkedFriends()){
+            np.add(ncl);
+          }
+        }
+        //池已走过一遍
+        clPool = np;
+      }
     }
+    
+    ArrayList<ListPool>lps;
+    lps = new ArrayList<ListPool>();
+    for(Cell cl: cells){
+      if(cl.hasC){
+        lps.add(new ListPool(cl));
+      }
+    }
+    
+    
+    for(ListPool lp: lps){
+      if(lp.hasFail){
+        continue;
+      }
+      
+      while(!lp.empty()){
+        lp.addPoolToList(lps);
+        //println("running Loop");
+      }
+      
+      //混上所有颜色
+      float r,g,b;
+      r = 0; 
+      g = 0; 
+      b = 0;
+      int nn;
+      nn = 0;
+      
+      for(Cell c: lp.clList){
+        r += c.cc.col.r;
+        g += c.cc.col.g;
+        b += c.cc.col.b;
+        
+        nn++;
+      }
+      
+      r/=nn;
+      g/=nn;
+      b/=nn;
+      
+      Color nc;
+      
+      nc = new Color(r,g,b);
+      
+      for(Cell c: lp.clList){
+        c.cc.col = nc.copy();
+      }
+      
+    }  
   
   }
 
+  void killNotLive(){
+    for(Cell cl: cells){
+      if(cl.hasC && cl.isPoison){
+        cl.poiKill();
+      }
+    }    
+  }
+    
   //void printM(){
   //  float ss = cellSize*scale*1;
   //  println("mx:  "+(mouseX-pos.x)/ss+" my:  "+(mouseY-pos.y)/ss);
@@ -137,6 +241,7 @@ class Medium {
           {
             addCC(cl);
             reculColor();
+            killNotLive();
           }
         }
         
@@ -244,6 +349,21 @@ class Cell {
     this.cc         = that.cc;
   }
 
+  void poiKill(){
+    float rate;
+    
+    PVector v1,v2;
+    v1 = new PVector(col.r,col.g,col.b);
+    v2 = new PVector(cc.col.r,cc.col.g,cc.col.b);
+    
+    rate = v1.dist(v2);
+    
+    if(rate>0.3){
+      wipe();  
+    }
+    println(rate);
+    
+  }
 
   void poison(Color pcl) {
     this.col      = pcl.copy();
