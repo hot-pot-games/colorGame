@@ -1,8 +1,10 @@
 final int LEVEL_TOTAL = 1;
 
 class LevelManager {
+  Medium med;
 
-  LevelManager() {
+  LevelManager(Medium pmed) {
+    med = pmed;
   }
 
   void loadLevel(int num) {
