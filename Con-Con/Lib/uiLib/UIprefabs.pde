@@ -267,6 +267,9 @@ class ColorSetEllipseArea extends EllipseArea implements KnowMouseArea
   }
 }
 
+
+
+
 //枚举类型 button_type_enum
 public enum button_type {
   DEFAULT_BUTT, IMAGE_RECT_BUTT, COLOR_RECT_BUTT, 
@@ -365,4 +368,13 @@ class UIfactory {
     
     return nb;
   }
+}
+
+class uiRadiusButton extends uiButton
+{
+  void draw()
+  {
+    area.draw();
+  }
+
 }
