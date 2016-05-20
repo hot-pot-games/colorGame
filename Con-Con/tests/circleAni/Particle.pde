@@ -8,7 +8,7 @@ class Particle {
   Particle(color mCol, int mR) {
     col = mCol;
     R = mR;
-    lifespan = 150.0;
+    lifespan = 255.0;
     r = random(3, 10);
     
     float ran = random(100);
@@ -28,7 +28,7 @@ class Particle {
 
   // Method to update location
   void update() {
-    lifespan -= 2.5;
+    lifespan -= 5.0;
   }
 
   // Method to display
