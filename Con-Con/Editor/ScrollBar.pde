@@ -53,9 +53,9 @@ class ScrollBar extends Clickable{
     }
     rect(spos, position.y, size.y, size.y);
     
-    fill(255);
-    textSize(15);
-    text(getValue() + "",position.x + size.x + 10,position.y,position.x + size.x + 30,position.y + 20);
+    //fill(255);
+    //textSize(15);
+    //text(getValue() + "",position.x + size.x + 10,position.y,position.x + size.x + 30,position.y + 20);
   }
 
   float getPos() {
@@ -68,6 +68,15 @@ class ScrollBar extends Clickable{
   {
     float value = spos - position.x;
     return (int)map(value,0,size.x - size.y,min,max + 1);
+  }
+  
+  void setValue(int value)
+  {
+    if(value < 0)
+      value = 0;
+    else if(value > 255)
+      value = 255;
+    newspos = sposMin + value/255.0f*(sposMax - sposMin);
   }
   
 }

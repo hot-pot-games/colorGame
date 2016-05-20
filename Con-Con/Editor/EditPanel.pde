@@ -3,7 +3,7 @@ class EditPanel {
   PVector size;
   color bgCol;
   ArrayList<Tools> tools;
-
+  
   //1格子区
   ScrollBar rowNumber = new ScrollBar(new PVector(50, 20), new PVector(200, 20), 20, 1, 50, 0);
   ScrollBar colNumber = new ScrollBar(new PVector(50, 50), new PVector(200, 20), 20, 1, 50, 0);
