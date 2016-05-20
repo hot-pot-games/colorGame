@@ -17,12 +17,12 @@ class LevelManager {
     st = loadTable("level"+num+"_sys.csv");
     if (ct==null) 
     {
-      println("ERROR: 关卡文件“levle0_cell.csv”没有找到");
+      println("ERROR: 关卡文件“levle"+num+"_cell.csv”没有找到");
       return;
     }
     if (st==null) 
     {
-      println("ERROR: 关卡文件“levle0_cell.csv”没有找到");
+      println("ERROR: 关卡文件“levle"+num+"_cell.csv”没有找到");
       return;
     }
 
