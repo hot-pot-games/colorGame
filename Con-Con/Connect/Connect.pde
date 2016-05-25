@@ -9,19 +9,15 @@ void settings(){
   float ww;
   hh = HEIGHT;
   ww = hh/16f*9;
-  size((int)ww,(int)hh);
+  size((int)ww,(int)hh,P2D);
 }
 
 //全局变量
 
-ArrayList<Scene>ss;
-Scene   seleScene;
-boolean isLockScene;
-SceneGameView sg;
-
-UIset      us;
-UIfactory  uf;
-SceneClock sc;
+UIset        us;
+UIfactory    uf;
+SceneClock   sc;
+SceneManager sm;
 
 PImage backP;
 PImage startP;
@@ -40,6 +36,7 @@ void setup(){
   //med     = new Medium(new PVector(width/2,height/2),100,1);
   Ani.init(this);
   sc = new SceneClock();
+  sm = new SceneManager();
   
   backP   =loadImage("back.jpg");
   startP  =loadImage("start.png");
@@ -48,17 +45,7 @@ void setup(){
   transX = 0;
   transY = 0;
   
-  sg = new SceneGameView(0,-1).load();
   
-  ss = new ArrayList<Scene>();
-  ss.add(new SceneStartMenu(0,0).load());
-  ss.add(sg);
-  ss.add(new SceneAbout(1,0).load());
-  ss.add(new SceneOption(-1,0).load());
-  ss.add(new SceneStore(0,1).load());
-  
-  isLockScene = true;
-  seleScene   = ss.get(0);
   
   //构建按钮
   us = UIset.getInstance();
@@ -88,15 +75,7 @@ void draw(){
   
   translate(-transX,-transY);
   
-  if(!isLockScene)
-  {
-    for(Scene s: ss){
-      s.display();
-    }
-  }
-  else{
-    seleScene.display();
-  }
+  sm.display();
   
   us.checkHover(transX+mouseX,transY+mouseY);
   us.display();
@@ -105,11 +84,8 @@ void draw(){
 
 
 void mousePressed(){
-  if(isLockScene)
-  {
-    //println(seleScene.anchor.x);
-    seleScene.checkPress(transX+mouseX,transY+mouseY);
-  }
+  
+  sm.checkMousePress();
   us.checkPress(transX+mouseX,transY+mouseY);
 }
 

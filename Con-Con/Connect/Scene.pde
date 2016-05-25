@@ -40,7 +40,7 @@ class SceneStartMenu extends Scene
     translate(anchor.x,anchor.y);
     fill(255);
     noStroke();
-    rect(0,0,size.x,size.y);
+    //rect(0,0,size.x,size.y);
     popMatrix();
   }
   
@@ -156,7 +156,7 @@ class SceneAbout extends Scene
     translate(anchor.x,anchor.y);
     fill(255);
     noStroke();
-    rect(0,0,size.x,size.y);
+    //rect(0,0,size.x,size.y);
     popMatrix();
   }
   
@@ -207,7 +207,7 @@ class SceneStore extends Scene
     translate(anchor.x,anchor.y);
     fill(255);
     noStroke();
-    rect(0,0,size.x,size.y);
+    //rect(0,0,size.x,size.y);
     popMatrix();
   }
   
@@ -258,7 +258,7 @@ class SceneOption extends Scene
     translate(anchor.x,anchor.y);
     fill(255);
     noStroke();
-    rect(0,0,size.x,size.y);
+    //rect(0,0,size.x,size.y);
     popMatrix();
   }
   

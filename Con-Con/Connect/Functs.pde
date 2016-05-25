@@ -27,7 +27,7 @@ void doEvent(function_type value, int extraValue){
 
 
 void changeColorTo(int cnum){
-  sg.med.seleColorIndex = cnum;
+  sm.sg.med.seleColorIndex = cnum;
   
   println(cnum);
 }
@@ -35,11 +35,11 @@ void changeColorTo(int cnum){
 void changeToolTo(int tnum){
   switch(tnum){
     case 0: 
-      sg.med.seleTool = color_tool.DROP_TOOL;
+      sm.sg.med.seleTool = color_tool.DROP_TOOL;
     break;
     
     case 1: 
-      sg.med.seleTool = color_tool.CUT_TOOL;
+      sm.sg.med.seleTool = color_tool.CUT_TOOL;
     break;
   
   }
@@ -48,27 +48,27 @@ void changeToolTo(int tnum){
 
 void changeToGameView(){
   println("scene01 function");
-  sc.moveToScene(ss.get(1));
+  sc.moveToScene(sm.ss.get(1));
 }
 
 void changeToStartMenu(){
   println("scene02 function");
-  sc.moveToScene(ss.get(0));
+  sc.moveToScene(sm.ss.get(0));
 }
 
 void changeToAbout(){
   println("scene03 function");
-  sc.moveToScene(ss.get(2));
+  sc.moveToScene(sm.ss.get(2));
 }
 
 void changeToOption(){
   println("scene04 function");
-  sc.moveToScene(ss.get(3));
+  sc.moveToScene(sm.ss.get(3));
 }
 
 void changeToStore(){
   println("scene05 function");
-  sc.moveToScene(ss.get(4));
+  sc.moveToScene(sm.ss.get(4));
 }
 
 
@@ -83,7 +83,7 @@ class SceneClock{
   }
   
   void moveToScene(Scene ns){
-    isLockScene = false;
+    sm.isLockScene = false;
     isOver = false;
     float time = 0.9;
     toLerp = ns;
@@ -99,8 +99,8 @@ class SceneClock{
     if(!isOver){
       if(millis()>startTime+waitTime){
         isOver = false;
-        seleScene = toLerp;
-        isLockScene = true;
+        sm.seleScene = toLerp;
+        sm.isLockScene = true;
       }
     }
   }
